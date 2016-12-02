@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ja"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>Data.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">casestudy (2016/11/22 9:47:14)</a> &gt; <a href="../../index.html" class="el_group">casestudy</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">casestudy</a> &gt; <span class="el_source">Data.java</span></div><h1>Data.java</h1><pre class="source lang-java linenums">package casestudy;
+
+public class Data {
+	private String data;
+	private long timeStamp;
+
+<span class="fc" id="L7">	Data(String data){</span>
+<span class="fc" id="L8">		this.data = data;</span>
+<span class="fc" id="L9">		this.timeStamp = System.currentTimeMillis();</span>
+<span class="fc" id="L10">	}</span>
+
+	public String getData(){
+<span class="fc" id="L13">		return this.data;</span>
+	}
+	public long getTimeStamp(){
+<span class="fc" id="L16">		return this.timeStamp;</span>
+	}
+
+
+	public boolean timeAndModeSEquals(String rawData){
+<span class="pc bpc" id="L21" title="1 of 4 branches missed.">		return (this.timeEquals(rawData) &amp;&amp; this.modeSEquals(rawData));</span>
+	}
+	private boolean timeEquals(String rawData){
+<span class="fc" id="L24">		return rawData.substring(108, 108+1).equals(this.getTime());</span>
+	}
+	private boolean modeSEquals(String rawData){
+<span class="fc" id="L27">		return ADS_B_Analyzer.modeS_Analyze(rawData).equals(this.getModeS());</span>
+	}
+	public String getModeS(){
+<span class="fc" id="L30">		return Integer.toHexString(Integer.parseInt(data.substring(64,64+24), 2));</span>
+	}
+	public String getTime(){
+<span class="fc" id="L33">		return data.substring(108,108+1);</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>casestudy (2016/11/22 9:47:14)</div></body></html>

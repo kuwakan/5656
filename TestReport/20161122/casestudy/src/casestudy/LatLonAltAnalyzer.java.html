@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ja"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>LatLonAltAnalyzer.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">casestudy (2016/11/22 9:47:14)</a> &gt; <a href="../../index.html" class="el_group">casestudy</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">casestudy</a> &gt; <span class="el_source">LatLonAltAnalyzer.java</span></div><h1>LatLonAltAnalyzer.java</h1><pre class="source lang-java linenums">package casestudy;
+
+import static java.lang.Math.*;
+
+/**
+ * 解析手法クラス&lt;br&gt;
+ * Nic(精度計算)は使用予定がなかったため未実装
+ */
+<span class="nc" id="L9">public class LatLonAltAnalyzer {</span>
+
+
+	/**
+	 * 地理緯度の区切り数
+	 */
+	private static final int COUNT_OF_LON_ZONE = 15;
+	/**
+	 * Even(偶数)における南北方向における緯度帯の幅
+	 */
+	private static final double LAT_DEPTH_E = (double)360 / (4 * COUNT_OF_LON_ZONE);
+
+	/**
+	 * Odd(奇数)における南北方向における緯度帯の幅
+	 */
+	private static final double LAT_DEPTH_O= (double)360 / (4 * (COUNT_OF_LON_ZONE - 1));
+
+	/**
+	 * モードSアドレスが一致したEven(偶数)、Odd(奇数)データから緯度経度高度を保存したPlanePositionを返す
+	 * @param dataE(偶数) SBS-3受信したevenデータ(バイナリ形式)
+	 * @param dataO(奇数) SBS-3受信したoddデータ(バイナリ形式)
+	 * @param evenNewThanOdd EvenがOddよりタイムスタンプが新しい場合、true、それ以外はfalse
+	 * @return PlanePosition 緯度経度高度を格納したオブジェクト
+	 */
+	public static PlanePosition calc_Position(String dataE, String dataO, boolean evenNewThanOdd){
+
+<span class="fc" id="L35">		double lat = calcLat(dataE, dataO, evenNewThanOdd);</span>
+<span class="fc" id="L36">		double lon = calcLon(dataE, dataO, evenNewThanOdd);</span>
+<span class="fc" id="L37">		int alt = calcAlt(dataE, dataO, evenNewThanOdd);</span>
+<span class="fc" id="L38">		return  new PlanePosition(lat, lon, alt);</span>
+	}
+
+	/**
+	 * モードSアドレスが一致したEven(偶数)、Odd(奇数)データから高度を返す
+	 * @param dataE(偶数) SBS-3受信したevenデータ(バイナリ形式)
+	 * @param dataO(奇数) SBS-3受信したoddデータ(バイナリ形式)
+	 * @param evenNewThanOdd EvenがOddよりタイムスタンプが新しい場合、true、それ以外はfalse
+	 * @return int alt 高度
+	 */
+	public static int calcAlt(String dataE, String dataO, boolean evenNewThanOdd) {
+		int alt;
+<span class="fc bfc" id="L50" title="All 2 branches covered.">		if(evenNewThanOdd){</span>
+<span class="fc" id="L51">			alt = calc_alt(dataE);</span>
+<span class="fc" id="L52">		}else{</span>
+<span class="fc" id="L53">			alt = calc_alt(dataO);</span>
+		}
+<span class="fc" id="L55">		return alt;</span>
+	}
+
+	/**
+	 * モードSアドレスが一致したEven(偶数)、Odd(奇数)データから経度を返す
+	 * @param dataE(偶数) SBS-3受信したevenデータ(バイナリ形式)
+	 * @param dataO(奇数) SBS-3受信したoddデータ(バイナリ形式)
+	 * @param evenNewThanOdd EvenがOddよりタイムスタンプが新しい場合、true、それ以外はfalse
+	 * @return double lon 経度
+	 */
+	public static double calcLon(String dataE, String dataO, boolean evenNewThanOdd) {
+		double lon;
+<span class="fc" id="L67">		double lonE = binToLonCPRFormat(dataE);</span>
+<span class="fc" id="L68">		double lonO = binToLonCPRFormat(dataO);</span>
+
+<span class="fc bfc" id="L70" title="All 2 branches covered.">		if(evenNewThanOdd){</span>
+<span class="fc" id="L71">			double ni = max(countOfLatZone(calcLatE(dataE, dataO)), 1.0);</span>
+<span class="fc" id="L72">			double dLon = 360/ni;</span>
+<span class="fc" id="L73">			double m = floor(lonE*(countOfLatZone(calcLatE(dataE, dataO))-1)-lonO*countOfLatZone(calcLatE(dataE, dataO))+0.5);</span>
+<span class="fc" id="L74">			lon = dLon*(mod(m,ni)+lonE);</span>
+<span class="fc" id="L75">		}else{</span>
+<span class="fc" id="L76">			double ni = max(countOfLatZone(calcLatO(dataE, dataO))-1, 1.0);</span>
+<span class="fc" id="L77">			double dLon = 360/ni;</span>
+<span class="fc" id="L78">			double m = floor(lonE*(countOfLatZone(calcLatO(dataE, dataO))-1)-lonO*countOfLatZone(calcLatO(dataE, dataO))+0.5);</span>
+<span class="fc" id="L79">			lon = dLon*(mod(m,ni)+lonO);</span>
+		}
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">		if(lon &gt;= 180.0){</span>
+<span class="nc" id="L82">			lon = lon - 360;</span>
+		}
+<span class="fc" id="L84">		return lon;</span>
+	}
+
+	/**
+	 * モードSアドレスが一致したEven(偶数)、Odd(奇数)データから緯度を返す
+	 * @param dataE(偶数) SBS-3受信したevenデータ(バイナリ形式)
+	 * @param dataO(奇数) SBS-3受信したoddデータ(バイナリ形式)
+	 * @param evenNewThanOdd EvenがOddよりタイムスタンプが新しい場合、true、それ以外はfalse
+	 * @return double lat 緯度
+	 */
+	public static double calcLat(String dataE, String dataO, boolean evenNewThanOdd) {
+		double lat;
+<span class="fc bfc" id="L96" title="All 2 branches covered.">		if(evenNewThanOdd) lat = calcLatE(dataE, dataO);</span>
+<span class="fc" id="L97">		else lat = calcLatO(dataE, dataO);</span>
+<span class="fc" id="L98">		return lat;</span>
+	}
+	private static double calcLatO(String dataE, String dataO) {
+<span class="fc" id="L101">		double lat_O = LAT_DEPTH_O * (mod(latIndexJ(dataE, dataO), 59) + binToLatCPRFormat(dataO));</span>
+<span class="pc bpc" id="L102" title="1 of 2 branches missed.">		if(lat_O &gt;= 270) lat_O -= 360;</span>
+<span class="fc" id="L103">		return lat_O;</span>
+	}
+	private static double calcLatE(String dataE, String dataO) {
+<span class="fc" id="L106">		double lat_E = LAT_DEPTH_E * (mod(latIndexJ(dataE, dataO), 60) + binToLatCPRFormat(dataE));</span>
+<span class="pc bpc" id="L107" title="1 of 2 branches missed.">		if(lat_E &gt;= 270) lat_E -= 360;</span>
+<span class="fc" id="L108">		return lat_E;</span>
+	}
+	/**
+	 * 緯度ゾーン番号jの算出
+	 * 参考:ADS-Bフォーマットp5
+	 * 	j = floor(59 × Lat_cprE - 60 Lat_cprO + 1/2)
+	 * @param dataE SBS-3受信したevenデータ(バイナリ形式)
+	 * @param dataO SBS-3受信したoddデータ(バイナリ形式)
+	 * @return 緯度ゾーン番号を返す
+	 */
+	public static double latIndexJ(String dataE, String dataO) {
+<span class="fc" id="L119">		return floor(59.0 * binToLatCPRFormat(dataE) - 60.0 * binToLatCPRFormat(dataO) + 0.5);</span>
+	}
+	/**
+	 * 緯度における経度ゾーン数
+	 * 参考:ADS-Bフォーマットp4
+	 *	極地に近い緯度では、東西方向に分割したゾーン数は少なく
+	 *		Lat &amp;gt; +86	or Lat &amp;lt; -86	⇒	NL=1
+	 *	赤道に近い緯度では、東西方向に分割したゾーン数は少なく
+	 *		Lat = 0						⇒	NL=59
+	 * @param lat 緯度
+	 * @return NumberLat 緯度における経度ゾーンの数
+	 */
+	public static int countOfLatZone(double lat) {
+<span class="fc bfc" id="L132" title="All 4 branches covered.">		if((lat &gt; 87)||(lat &lt; -87)) return 1;</span>
+<span class="fc bfc" id="L133" title="All 4 branches covered.">		else if((lat &gt; 86.5)||(lat &lt; -86.5)) return 2;</span>
+		else
+<span class="fc" id="L135">		return (int)floor(2*PI/acos(1-(1-cos(PI/(2*COUNT_OF_LON_ZONE)))/pow(cos(PI/180*lat),2.0)));</span>
+	}
+
+	/**
+	 * dataからCPR(Compact Position Reporting)形式のLon(経度)を抽出
+	 * @param data data SBS-3受信データ(バイナリ形式)
+	 * @return lon	CPR(Compact Position Reporting)形式の経度
+	 */
+	private static double binToLonCPRFormat(String data) {
+<span class="fc" id="L144">		return (double)Integer.parseInt(data.substring(127,127+17), 2) /131072;</span>
+	}
+	/**
+	 * dataからCPR(Compact Position Reporting)形式のLat(緯度)を抽出
+	 * @param data SBS-3受信データ(バイナリ形式)
+	 * @return lat	CPR(Compact Position Reporting)形式の緯度
+	 */
+	private static double binToLatCPRFormat(String data) {
+<span class="fc" id="L152">		return (double)Integer.parseInt(data.substring(110,110+17), 2)/131072;</span>
+	}
+
+	public static double mod(double x,double y) {
+<span class="fc" id="L156">		return x-y*floor(x/y);</span>
+	}
+
+	/**
+	 * 高度解析
+	 * @param data SBS-3受信データ(バイナリ形式)
+	 * @return 高度 単位フィート
+	 */
+	public static int calc_alt(String data) {
+<span class="fc" id="L165">		int n=0;</span>
+
+<span class="fc" id="L167">		String frontbit=data.substring(96,96+7);</span>
+<span class="fc" id="L168">		String backbit=data.substring(103,103+4);</span>
+
+<span class="fc" id="L170">		String altbin = frontbit + backbit;</span>
+
+<span class="pc bpc" id="L172" title="1 of 2 branches missed.">		if(unitBit(data)==1)n=25;</span>
+<span class="nc" id="L173">		else n=100;</span>
+
+<span class="fc" id="L175">		int altitude = Integer.parseInt(altbin,2)*n-1000;</span>
+
+
+<span class="fc" id="L178">		return altitude;</span>
+	}
+
+	private static int unitBit(String data) {
+<span class="fc" id="L182">		int unitbit = Integer.parseInt(data.substring(103,104),2);</span>
+<span class="fc" id="L183">		return unitbit;</span>
+	}
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>casestudy (2016/11/22 9:47:14)</div></body></html>

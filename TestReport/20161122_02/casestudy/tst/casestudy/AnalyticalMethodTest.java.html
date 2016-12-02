@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ja"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>AnalyticalMethodTest.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">casestudy (2016/11/22 10:34:00)</a> &gt; <a href="../../index.html" class="el_group">casestudy</a> &gt; <a href="../index.html" class="el_bundle">tst</a> &gt; <a href="index.source.html" class="el_package">casestudy</a> &gt; <span class="el_source">AnalyticalMethodTest.java</span></div><h1>AnalyticalMethodTest.java</h1><pre class="source lang-java linenums">package casestudy;
+
+import static casestudy.LatLonAltAnalyzer.*;
+import static casestudy.TestDataRead.*;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
+
+import org.junit.Test;
+
+<span class="fc" id="L10">public class AnalyticalMethodTest {</span>
+
+	@Test
+	public void countOfLatZoneTest0度で59個を返す() {
+<span class="fc" id="L14">		int actual		= countOfLatZone(0);</span>
+<span class="fc" id="L15">		int expected	= 59;</span>
+<span class="fc" id="L16">		assertThat(actual, is(expected));</span>
+<span class="fc" id="L17">	}</span>
+	@Test
+	public void countOfLatZoneTest86_5度で3個を返す() {
+<span class="fc" id="L20">		int actual		= countOfLatZone(86.5);</span>
+<span class="fc" id="L21">		int expected	= 3;</span>
+<span class="fc" id="L22">		assertThat(actual, is(expected));</span>
+<span class="fc" id="L23">	}</span>
+	@Test
+	public void countOfLatZoneTest86度で3個を返す() {
+<span class="fc" id="L26">		int actual		= countOfLatZone(86);</span>
+<span class="fc" id="L27">		int expected	= 3;</span>
+<span class="fc" id="L28">		assertThat(actual, is(expected));</span>
+<span class="fc" id="L29">	}</span>
+	@Test
+	public void countOfLatZoneTest87度で2個を返す() {
+<span class="fc" id="L32">		int actual		= countOfLatZone(87);</span>
+<span class="fc" id="L33">		int expected	= 2;</span>
+<span class="fc" id="L34">		assertThat(actual, is(expected));</span>
+<span class="fc" id="L35">	}</span>
+	@Test
+	public void countOfLatZoneTest88度で1個を返す() {
+<span class="fc" id="L38">		int actual		= countOfLatZone(88);</span>
+<span class="fc" id="L39">		int expected	= 1;</span>
+<span class="fc" id="L40">		assertThat(actual, is(expected));</span>
+<span class="fc" id="L41">	}</span>
+	@Test
+	public void countOfLatZoneTestマイナス86_6度で2個を返す() {
+<span class="fc" id="L44">		int actual		= countOfLatZone(-86.6);</span>
+<span class="fc" id="L45">		int expected	= 2;</span>
+<span class="fc" id="L46">		assertThat(actual, is(expected));</span>
+<span class="fc" id="L47">	}</span>
+	@Test
+	public void countOfLatZoneTestマイナス89度で1個を返す() {
+<span class="fc" id="L50">		int actual		= countOfLatZone(-89);</span>
+<span class="fc" id="L51">		int expected	= 1;</span>
+<span class="fc" id="L52">		assertThat(actual, is(expected));</span>
+<span class="fc" id="L53">	}</span>
+
+	@Test
+	public void テストデータ528行目629行目calcLat_calcLon_calcAlt() {
+<span class="fc" id="L57">		String dataE = fileReadLineBinary(528);</span>
+<span class="fc" id="L58">		String dataO = fileReadLineBinary(629);</span>
+<span class="fc" id="L59">		boolean evenNewThanOdd = false;</span>
+<span class="fc" id="L60">		double actual	= calcLat(dataE,dataO,evenNewThanOdd);</span>
+<span class="fc" id="L61">		double expected	= 36.6502434866769;</span>
+<span class="fc" id="L62">		assertThat(&quot;Lat:&quot;,actual, is(expected));</span>
+<span class="fc" id="L63">		actual	= calcLon(dataE,dataO,evenNewThanOdd);</span>
+<span class="fc" id="L64">		expected	= 136.52072987657914;</span>
+<span class="fc" id="L65">		assertThat(&quot;Lon:&quot;,actual, is(expected));</span>
+<span class="fc" id="L66">		int actual2	= calcAlt(dataE,dataO,evenNewThanOdd);</span>
+<span class="fc" id="L67">		int expected2	= 38100;</span>
+<span class="fc" id="L68">		assertThat(&quot;Alt:&quot;,actual2, is(expected2));</span>
+
+<span class="fc" id="L70">	}</span>
+	@Test
+	public void calcLat_calcLon_calcAltTestテストデータ820行目789行目() {
+<span class="fc" id="L73">		String dataE = fileReadLineBinary(820);</span>
+<span class="fc" id="L74">		String dataO = fileReadLineBinary(789);</span>
+<span class="fc" id="L75">		boolean evenNewThanOdd = true;</span>
+<span class="fc" id="L76">		double actual	= calcLat(dataE,dataO,evenNewThanOdd);</span>
+<span class="fc" id="L77">		double expected	= 34.782257080078125;</span>
+<span class="fc" id="L78">		assertThat(&quot;Lat:&quot;,actual, is(expected));</span>
+<span class="fc" id="L79">		actual	= calcLon(dataE,dataO,evenNewThanOdd);</span>
+<span class="fc" id="L80">		expected	= 133.65585638552295;</span>
+<span class="fc" id="L81">		assertThat(&quot;Lon:&quot;,actual, is(expected));</span>
+<span class="fc" id="L82">		int actual2	= calcAlt(dataE,dataO,evenNewThanOdd);</span>
+<span class="fc" id="L83">		int expected2	= 38100;</span>
+<span class="fc" id="L84">		assertThat(&quot;Alt:&quot;,actual2, is(expected2));</span>
+<span class="fc" id="L85">	}</span>
+	@Test
+	public void calcLat_calcLon_calcAltTestテストデータ789行目528行目() {
+<span class="fc" id="L88">		String dataE = fileReadLineBinary(528);</span>
+<span class="fc" id="L89">		String dataO = fileReadLineBinary(789);</span>
+<span class="fc" id="L90">		boolean evenNewThanOdd = false;</span>
+<span class="fc" id="L91">		double actual	= calcLat(dataE,dataO,evenNewThanOdd);</span>
+<span class="fc" id="L92">		double expected	= 36.64607456752232;</span>
+<span class="fc" id="L93">		assertThat(&quot;Lat:&quot;,actual, is(expected));</span>
+<span class="fc" id="L94">		actual	= calcLon(dataE,dataO,evenNewThanOdd);</span>
+<span class="fc" id="L95">		expected	= 136.50179599193817;</span>
+<span class="fc" id="L96">		assertThat(&quot;Lon:&quot;,actual, is(expected));</span>
+<span class="fc" id="L97">		int actual2	= calcAlt(dataE,dataO,evenNewThanOdd);</span>
+<span class="fc" id="L98">		int expected2	= 38075;</span>
+<span class="fc" id="L99">		assertThat(&quot;Alt:&quot;,actual2, is(expected2));</span>
+<span class="fc" id="L100">	}</span>
+	@Test
+	public void calcAltTestテストデータ313行目76行目() {
+<span class="fc" id="L103">		String dataE = fileReadLineBinary(528);</span>
+<span class="fc" id="L104">		String dataO = fileReadLineBinary(789);</span>
+<span class="fc" id="L105">		boolean evenNewThanOdd = false;</span>
+<span class="fc" id="L106">		double actual	= calcLat(dataE,dataO,evenNewThanOdd);</span>
+<span class="fc" id="L107">		double expected	= 36.64607456752232;</span>
+<span class="fc" id="L108">		assertThat(&quot;Lat:&quot;,actual, is(expected));</span>
+<span class="fc" id="L109">		actual	= calcLon(dataE,dataO,evenNewThanOdd);</span>
+<span class="fc" id="L110">		expected	= 136.50179599193817;</span>
+<span class="fc" id="L111">		assertThat(&quot;Lon:&quot;,actual, is(expected));</span>
+<span class="fc" id="L112">		int actual2	= calcAlt(dataE,dataO,evenNewThanOdd);</span>
+<span class="fc" id="L113">		int expected2	= 38075;</span>
+<span class="fc" id="L114">		assertThat(&quot;Alt:&quot;,actual2, is(expected2));</span>
+<span class="fc" id="L115">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>casestudy (2016/11/22 10:34:00)</div></body></html>

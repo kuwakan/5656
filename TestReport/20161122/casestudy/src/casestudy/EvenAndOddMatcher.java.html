@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ja"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>EvenAndOddMatcher.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">casestudy (2016/11/22 9:47:14)</a> &gt; <a href="../../index.html" class="el_group">casestudy</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">casestudy</a> &gt; <span class="el_source">EvenAndOddMatcher.java</span></div><h1>EvenAndOddMatcher.java</h1><pre class="source lang-java linenums">package casestudy;
+
+import static casestudy.ADS_B_Analyzer.*;
+import static casestudy.CallSignFactory.*;
+import static casestudy.LatLonAltAnalyzer.*;
+import static casestudy.PlanePositionFactory.*;
+import static casestudy.TypeCode.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
+/**
+ * ADSBからのデータを解析
+ */
+<span class="nc" id="L14">public class EvenAndOddMatcher {</span>
+
+	static final long DELETE_TIME = 1000 * 10;//削除のしきい値(ms)
+<span class="fc" id="L17">	static ArrayList&lt;Data&gt; evenDataList = new ArrayList&lt;Data&gt;();</span>
+<span class="fc" id="L18">	static ArrayList&lt;Data&gt; oddDataList = new ArrayList&lt;Data&gt;();</span>
+
+	public static String analyzeData(String hexRawData){
+
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">		if(hexRawDataCheck(hexRawData)){</span>
+
+<span class="nc" id="L24">			String binaryRawData = HexToBinary.hexToBinary(hexRawData);</span>
+<span class="nc" id="L25">			PlanePosition planePosition = null;</span>
+<span class="nc bnc" id="L26" title="All 2 branches missed.">			if(parityCheck(binaryRawData)){</span>
+<span class="nc bnc" id="L27" title="All 2 branches missed.">				if(judgedADS_B_Data(binaryRawData)){</span>
+
+<span class="nc bnc" id="L29" title="All 2 branches missed.">					if(			createTypeCode(binaryRawData) == CALL_SIGN){</span>
+<span class="nc" id="L30">						DB_Item_Generator.dB_Item_CallSign_Generate(modeS_Analyze(binaryRawData), calcCallSign(binaryRawData));</span>
+<span class="nc bnc" id="L31" title="All 2 branches missed.">					}else if(	createTypeCode(binaryRawData) == VELOCITY){</span>
+<span class="nc" id="L32">						DB_Item_Generator.dB_Item_Velocity_Generate(modeS_Analyze(binaryRawData), VelocityFactory.calc_velocity(binaryRawData));</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">					}else if(	createTypeCode(binaryRawData) == PLANE_POSITION){</span>
+<span class="nc" id="L34">						planePosition = rawDataToPlanePosition(binaryRawData);</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">						if(!(planePosition == null)){</span>
+<span class="nc" id="L36">							DB_Item_Generator.dB_Item_PlanePosition_Generate(modeS_Analyze(binaryRawData), planePosition);</span>
+						}
+					}
+				}
+			}
+		}
+<span class="fc" id="L42">		return null;</span>
+	}
+
+	/**
+	 * rawDataを対象Listに追加し、整理する
+	 * @param rawData SBS-3受信データ(バイナリ形式)
+	 * @param addDataList 追加対象のリスト(EvenList又はOddList)
+	 */
+	public static void listAdd(String rawData,ArrayList&lt;Data&gt; addDataList){
+<span class="nc" id="L51">		addDataList.add(new Data(rawData));</span>
+<span class="nc" id="L52">		Collections.sort(addDataList, new DataListComparator());</span>
+<span class="nc" id="L53">		oldListDelete(addDataList);</span>
+<span class="nc" id="L54">	}</span>
+
+	private static void oldListDelete(ArrayList&lt;Data&gt; dataList) {
+<span class="nc" id="L57">		long now = System.currentTimeMillis();//現在時刻を取得</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">		for(int i = dataList.size() - 1; i &gt;= 0; i--){</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">			if((now - dataList.get(i).getTimeStamp()) &gt;=  DELETE_TIME) dataList.remove(i);</span>
+		}
+<span class="nc" id="L61">	}</span>
+
+	/**
+	 * 位置情報のrawDataと対になるデータを
+	 * evenDataList又はOddDataListから探し、
+	 * PlanePostionを返す。なければ、null値を返す
+	 * @param rawData SBS-3受信データ(バイナリ形式)
+	 * @param pairDataList rawDataがEvenならOddList。rawDataがOddならEvenList
+	 * @return PlanePositon 航空機の緯度経度高度情報
+	 */
+	public static PlanePosition planePositonCreator(String rawData,ArrayList&lt;Data&gt; pairDataList) {
+
+		String listData;
+<span class="nc" id="L74">		PlanePosition planePosition = null;</span>
+
+<span class="nc bnc" id="L76" title="All 2 branches missed.">		for(Data pairData : pairDataList){</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">			if(pairData.timeAndModeSEquals(rawData)){</span>
+<span class="nc" id="L78">				listData = pairData.getData();</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">				if(judgeEven(rawData)){</span>
+<span class="nc" id="L80">					planePosition = calc_Position(rawData, listData, true);</span>
+<span class="nc" id="L81">				}else{</span>
+<span class="nc" id="L82">					planePosition = calc_Position(listData, rawData, false);</span>
+				}
+
+<span class="nc" id="L85">				break;</span>
+			}
+		}
+<span class="nc" id="L88">		return planePosition;</span>
+	}
+
+	private static boolean judgeOdd(String rawData) {
+<span class="nc bnc" id="L92" title="All 2 branches missed.">		return Integer.parseInt(rawData.substring(109, 109+1), 2) == 1;</span>
+	}
+
+	private static boolean judgeEven(String rawData) {
+<span class="nc bnc" id="L96" title="All 2 branches missed.">		return !(judgeOdd(rawData));</span>
+	}
+
+	private static boolean judgedADS_B_Data(String rawData) {
+<span class="nc bnc" id="L100" title="All 2 branches missed.">		return createDownLinkFormatNo(rawData) == 17;</span>
+	}
+
+	private static int createDownLinkFormatNo(String data) {
+<span class="nc" id="L104">		return Integer.parseInt(data.substring(56,56+5), 2);</span>
+	}
+
+	private static boolean hexRawDataCheck(String hexRawData){
+<span class="pc bpc" id="L108" title="1 of 2 branches missed.">		if(hexRawData.length() == 75){</span>
+<span class="nc bnc" id="L109" title="All 4 branches missed.">			return hexRawData.substring(0,0+8).equals(&quot;10 02 01&quot;) &amp;&amp; hexRawData.substring(63,63+5).equals(&quot;10 03&quot;);</span>
+		}
+<span class="fc" id="L111">		return  false;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>casestudy (2016/11/22 9:47:14)</div></body></html>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ja"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>ADS_B_Analyzer.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">casestudy (2016/11/22 10:34:00)</a> &gt; <a href="../../index.html" class="el_group">casestudy</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">casestudy</a> &gt; <span class="el_source">ADS_B_Analyzer.java</span></div><h1>ADS_B_Analyzer.java</h1><pre class="source lang-java linenums">package casestudy;
+
+/**
+ * タイプコード DF17データ解析クラス
+ */
+<span class="nc" id="L6">public class ADS_B_Analyzer {</span>
+
+	/**
+	 * dataからTypeCcodeを抽出
+	 * @param data SBS-3受信データ(バイナリ形式)
+	 * @return タイプコード番号
+	 */
+	public static int tc_Analyze(String data) {
+<span class="fc" id="L14">		return Integer.parseInt(data.substring(88,88+5), 2);</span>
+	}
+
+	/**
+	 * dataからモードSアドレスを抽出
+	 * @param data SBS-3受信データ(バイナリ形式)
+	 * @return モードSアドレス
+	 */
+	public static String modeS_Analyze(String data) {
+<span class="fc" id="L23">		 return Integer.toHexString(Integer.parseInt(data.substring(64,64+24), 2));</span>
+	}
+
+	/**
+	 * dataにパリティチェックのエラーがあるか確認
+	 * @param data SBS-3受信データ(バイナリ形式)
+	 * @return パリティチェックの結果
+	 */
+	public static boolean parityCheck(String data){
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">		return Integer.parseInt(data.substring(144, 168),2) == 0;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>casestudy (2016/11/22 10:34:00)</div></body></html>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ja"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>VelocityFactory.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">casestudy (2016/11/22 10:34:00)</a> &gt; <a href="../../index.html" class="el_group">casestudy</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">casestudy</a> &gt; <span class="el_source">VelocityFactory.java</span></div><h1>VelocityFactory.java</h1><pre class="source lang-java linenums">package casestudy;
+/**
+ * SBS-3受信データ(バイナリ形式)からVelocity型のデータを作るクラス
+ * Velocity型は、水平方向の速度・方位と垂直方向の速度・向きからなるデータ
+ */
+<span class="nc" id="L6">public class VelocityFactory {</span>
+	/**
+	 * dataから水平方向の速度・方位と垂直方向の速度・向きを解析
+	 * @param data SBS-3受信データ(バイナリ形式)
+	 * @return Velocity(方位、速度のオブジェクト)
+	 */
+	public static Velocity calc_velocity(String data) {
+<span class="fc" id="L13">		return new Velocity(calcVerticalSign(data), calcVerticalVerocity(data),calcHorizonDeg(data), calcHorizonVelocity(data));</span>
+	}
+
+	/**
+	 * データから垂直方向の向き抽出。
+	 * @param data SBS-3受信データ(バイナリ形式)
+	 * @return 0:Up	1:Down
+	 */
+	public static int calcVerticalSign(String data) {
+		int s_Vr;
+<span class="fc" id="L23">		s_Vr = Integer.parseInt(data.substring(124,124+1), 2);</span>
+<span class="fc" id="L24">		return s_Vr;</span>
+	}
+
+	/**
+	 * データから垂直方向の速度を計算。
+	 * @param data SBS-3受信データ(バイナリ形式)
+	 * @return 速度(kn/h、、絶対値)
+	 */
+	public static double calcVerticalVerocity(String data) {
+		double vr;
+<span class="fc" id="L34">		vr = Integer.parseInt(data.substring(125,125+8), 2);</span>
+<span class="fc" id="L35">		return vr;</span>
+	}
+
+	/**
+	 * データから水平方向の方位を計算。
+	 * @param data SBS-3受信データ(バイナリ形式)
+	 * @return 方位(度)
+	 */
+	public static double calcHorizonDeg(String data) {
+		double deg;
+<span class="fc" id="L45">		deg = Math.atan(calcEWVelocity(data)/calcNSVelocity(data)) * 360.0 / (2 * Math.PI );</span>
+
+<span class="fc bfc" id="L47" title="All 2 branches covered.">		if(deg &lt; 0){</span>
+<span class="fc" id="L48">			deg += 360;</span>
+		}
+<span class="fc" id="L50">		return deg;</span>
+	}
+
+	/**
+	 * データから水平方向の速度を計算。
+	 * @param data SBS-3受信データ(バイナリ形式)
+	 * @return 速度(kn/h、、絶対値)
+	 */
+	public static double calcHorizonVelocity(String data) {
+		double vel;
+<span class="fc" id="L60">		vel = Math.sqrt(Math.pow(calcEWVelocity(data),2.0) + Math.pow(calcNSVelocity(data), 2.0));</span>
+<span class="fc" id="L61">		return vel;</span>
+	}
+
+	/**
+	 * データから南北方向における速度を計算。
+	 * @param data SBS-3受信データ(バイナリ形式)
+	 * @return 南北方向における速度(kn/h)
+	 */
+	public static double calcNSVelocity(String data) {
+		double v_NS;
+<span class="fc bfc" id="L71" title="All 2 branches covered.">		if(signNS(data)==1){	//北から南の場合</span>
+<span class="fc" id="L72">			v_NS = (-1) * (Integer.parseInt(data.substring(113,113+10), 2) - 1);</span>
+<span class="fc" id="L73">		}else{					//南から北の場合</span>
+<span class="fc" id="L74">			v_NS = Integer.parseInt(data.substring(113,113+10), 2) - 1;</span>
+		}
+<span class="fc" id="L76">		return v_NS;</span>
+	}
+
+	/**
+	 * データから東西方向における速度を計算。
+	 * @param data SBS-3受信データ(バイナリ形式)
+	 * @return 東西方向における速度(kn/h)
+	 */
+	public static double calcEWVelocity(String data) {
+		double v_EW;
+<span class="fc bfc" id="L86" title="All 2 branches covered.">		if(signEW(data)==1){	//東から西の場合</span>
+<span class="fc" id="L87">			v_EW = (-1) * (Integer.parseInt(data.substring(102,102+10), 2) - 1);</span>
+<span class="fc" id="L88">		}else{					//西から東の場合</span>
+<span class="fc" id="L89">			v_EW = Integer.parseInt(data.substring(102,102+10), 2) - 1;</span>
+		}
+<span class="fc" id="L91">		return v_EW;</span>
+	}
+
+	/**
+	 * データから南北方向の向きを返す
+	 * @param data SBS-3受信データ(バイナリ形式)
+	 * @return 0:南から北	1:北から南
+	 */
+	public static int signNS(String data) {
+<span class="fc" id="L100">		return Integer.parseInt(data.substring(112,112+1), 2);</span>
+	}
+
+	/**
+	 * データから東西方向の向きを返す
+	 * @param data SBS-3受信データ(バイナリ形式)
+	 * @return 0:西から東	1:東から西
+	 */
+	public static int signEW(String data) {
+<span class="fc" id="L109">		return Integer.parseInt(data.substring(101,101+1), 2);</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>casestudy (2016/11/22 10:34:00)</div></body></html>

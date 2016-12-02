@@ -2,8 +2,8 @@ package casestudy;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class Testinsert {
-	public static void callsigninsert(DB_Item_CallSign callsign) {
+public class InsertDB {
+	public static void callSignInsert(DB_Item_CallSign callsign) {
 		Connection   con = null;
 
 
@@ -33,7 +33,7 @@ public class Testinsert {
 
 	}
 
-	public static void positioninsert(DB_Item_PlanePosition position) {
+	public static void positionInsert(DB_Item_PlanePosition position) {
 		Connection   con = null;
 
 		try{
@@ -63,7 +63,7 @@ public class Testinsert {
 		System.out.println(position.getPlanePosition().getAlt());
 	}
 
-	public static void velocityinsert(DB_Item_Velocity velocity) {
+	public static void velocityInsert(DB_Item_Velocity velocity) {
 		Connection   con = null;
 
 		try{

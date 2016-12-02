@@ -4,14 +4,21 @@ import static casestudy.LatLonAltAnalyzer.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
 /**
  * PlanePosition型のデータを作るためのファクトリーメソッド
  * @see casestudy.LatLonAltAnalyzer
  * @see casestudy.PlanePosition
  */
 public class PlanePositionFactory {
-	static final long DELETE_TIME = 1000 * 10;//削除のしきい値(ms)
+
+	/** 削除のしきい値[ms] */
+	static final long DELETE_TIME = 1000 * 10;//
+
+	/** evenデータを格納 */
 	static ArrayList<Data> evenDataList = new ArrayList<Data>();
+
+	/** oddデータを格納 */
 	static ArrayList<Data> oddDataList = new ArrayList<Data>();
 
 	/**
@@ -36,6 +43,7 @@ public class PlanePositionFactory {
 
 		return planePositonCreator(rawData,pairDataList);
 	}
+
 	/**
 	 * EvenListのゲッター
 	 * @return EvenList
@@ -43,6 +51,7 @@ public class PlanePositionFactory {
 	public static ArrayList<Data> getEvenDataList() {
 		return evenDataList;
 	}
+
 	/**
 	 * OddListのゲッター
 	 * @return OddList
@@ -50,6 +59,7 @@ public class PlanePositionFactory {
 	public static ArrayList<Data> getOddDataList() {
 		return oddDataList;
 	}
+
 	/**
 	 * rawDataを対象Listに追加し、整理する
 	 * @param addDataList リストに追加する対象のリスト
@@ -63,6 +73,7 @@ public class PlanePositionFactory {
 
 		return addDataList.size();
 	}
+
 	/**
 	 * Static定数DELETE_TIMEより古いデータをリストから削除
 	 * @param dataList 削除対象のデータリスト
@@ -106,11 +117,23 @@ public class PlanePositionFactory {
 		return planePosition;
 
 	}
+
+	/**
+	 * Oddデータ判別
+	 * @param rawData
+	 * @return Oddデータの場合true
+	 */
 	private static boolean judgeOdd(String rawData) {
 		return Integer.parseInt(rawData.substring(109, 109+1), 2) == 1;
 	}
 
+	/**
+	 * Evenデータ判別
+	 * @param rawData
+	 * @return Evenデータの場合true
+	 */
 	private static boolean judgeEven(String rawData) {
 		return !(judgeOdd(rawData));
 	}
+
 }

@@ -2,7 +2,6 @@ package casestudy;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -120,9 +119,10 @@ public class ConOrDie2 extends HttpServlet {
 
 
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/administrator2.jsp");
-		dispatcher.forward(request, response);
+		//RequestDispatcher dispatcher = request.getRequestDispatcher("N1/administrator2.jsp");
+		//dispatcher.forward(request, response);
 
+		response.sendRedirect("N1/administrator2.jsp");
 	}
 
 }

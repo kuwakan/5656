@@ -103,6 +103,17 @@
 	   <%} %>
    </div>
 
+
+  <form action="/connection/AdminEnd" method="post" >
+<input type="submit" value="DB止める" />
+
+
+</form>>
+
+
+
+
+
   <form action="/connection/AdminEnd" method="post" >
 <input type="submit" value="管理者画面終了" />
 

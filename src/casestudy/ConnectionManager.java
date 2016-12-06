@@ -7,9 +7,9 @@ public class ConnectionManager {
 	/** データベース接続URL */
 	private static final String URL = "jdbc:oracle:thin:@DB01:1521:ascdb";
 	/** ユーザー名 */
-	private static final String USER = "asct03";
+	private static final String USER = "asct02";
 	/** パスワード */
-	private static final String PASSWORD = "asc_t03";
+	private static final String PASSWORD = "asc_t02";
 
 
 	/**

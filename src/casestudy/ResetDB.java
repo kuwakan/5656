@@ -10,24 +10,20 @@ import java.sql.Statement;
  */
 public class ResetDB {
 
-	private  Connection con;
-
-	/**	コンストラクタ */
-	public ResetDB(Connection con) {
-		this.con = con;
-	}
-
 	public void resetDB() throws SQLException {
 
+		Connection   con = null;
+		con = ConnectionManager.getConnection();
+		System.out.println("DB接続完了");
+
 		Statement stmt = null;
-		int rs = 0;
 
 		try{
 
 			stmt = con.createStatement();
-			rs = stmt.executeUpdate("TRUNCATE TABLE callsign");
-			rs = stmt.executeUpdate("TRUNCATE TABLE velocity");
-			rs = stmt.executeUpdate("TRUNCATE TABLE position");
+			stmt.executeUpdate("TRUNCATE TABLE callsign");
+			stmt.executeUpdate("TRUNCATE TABLE velocity");
+			stmt.executeUpdate("TRUNCATE TABLE position");
 
 		}catch (SQLException e){
 
@@ -35,10 +31,10 @@ public class ResetDB {
 
 		}finally{
 
-			//絶対行う
 			if(stmt != null){
 				stmt.close();
 			}
+			System.out.println("全テーブルリセット完了");
 
 		}
 

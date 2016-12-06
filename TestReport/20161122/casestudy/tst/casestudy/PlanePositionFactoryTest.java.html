@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ja"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>PlanePositionFactoryTest.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">casestudy (2016/11/22 9:47:14)</a> &gt; <a href="../../index.html" class="el_group">casestudy</a> &gt; <a href="../index.html" class="el_bundle">tst</a> &gt; <a href="index.source.html" class="el_package">casestudy</a> &gt; <span class="el_source">PlanePositionFactoryTest.java</span></div><h1>PlanePositionFactoryTest.java</h1><pre class="source lang-java linenums">package casestudy;
+
+import static casestudy.PlanePositionFactory.*;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+import org.junit.experimental.runners.Enclosed;
+import org.junit.runner.RunWith;
+
+@RunWith(Enclosed.class)
+<span class="nc" id="L12">public class PlanePositionFactoryTest {</span>
+
+<span class="fc" id="L14">	public static class PlanePosition作成テスト{</span>
+		@Test
+		public void テストデータ11行目と32行目からPlanePosition作成テスト() {
+			double actual ;
+<span class="fc" id="L18">			double expected = 36.077286856515066;</span>
+			PlanePosition sut;
+
+<span class="fc" id="L21">			rawDataToPlanePosition(TestDataRead.fileReadLineBinary(11));</span>
+<span class="fc" id="L22">			sut = rawDataToPlanePosition(TestDataRead.fileReadLineBinary(32));</span>
+<span class="fc" id="L23">			actual = sut.getLat();</span>
+<span class="fc" id="L24">			assertThat(&quot;LAT TEST:&quot;,actual, is(expected));</span>
+
+<span class="fc" id="L26">			expected = 138.14062889586106;</span>
+<span class="fc" id="L27">			actual = sut.getLon();</span>
+<span class="fc" id="L28">			assertThat(&quot;LON TEST:&quot;,actual, is(expected));</span>
+
+<span class="fc" id="L30">			expected = 13200.0;</span>
+<span class="fc" id="L31">			actual = sut.getAlt();</span>
+<span class="fc" id="L32">			assertThat(&quot;ALT TEST:&quot;,actual, is(expected));</span>
+
+<span class="fc" id="L34">		}</span>
+
+		@Test
+		public void テストデータ32行目と61行目からPlanePosition作成テスト() {
+			double actual ;
+<span class="fc" id="L39">			double expected = 34.24406433105469;</span>
+			PlanePosition sut;
+
+<span class="fc" id="L42">			rawDataToPlanePosition(TestDataRead.fileReadLineBinary(32));</span>
+<span class="fc" id="L43">			sut = rawDataToPlanePosition(TestDataRead.fileReadLineBinary(61));</span>
+<span class="fc" id="L44">			actual = sut.getLat();</span>
+<span class="fc" id="L45">			assertThat(&quot;LAT TEST:&quot;,actual, is(expected));</span>
+
+<span class="fc" id="L47">			expected = 135.26372792769453;</span>
+<span class="fc" id="L48">			actual = sut.getLon();</span>
+<span class="fc" id="L49">			assertThat(&quot;LON TEST:&quot;,actual, is(expected));</span>
+
+<span class="fc" id="L51">			expected = 13200.0;</span>
+<span class="fc" id="L52">			actual = sut.getAlt();</span>
+<span class="fc" id="L53">			assertThat(&quot;ALT TEST:&quot;,actual, is(expected));</span>
+
+<span class="fc" id="L55">		}</span>
+	}
+
+<span class="fc" id="L58">	public static class Listへの追加テスト{</span>
+		@Test
+		public void OddListへ追加するテスト(){
+<span class="fc" id="L61">			int expected = getOddDataList().size() + 1;</span>
+<span class="fc" id="L62">			int actual = listAdd(TestDataRead.fileReadLineBinary(328),getOddDataList());</span>
+<span class="fc" id="L63">			assertThat(&quot;ODD:&quot;,actual, is(expected));</span>
+<span class="fc" id="L64">		}</span>
+
+		@Test
+		public void EvenListへ追加するテスト(){
+<span class="fc" id="L68">			int expected = getEvenDataList().size()  + 1;</span>
+<span class="fc" id="L69">			int actual = listAdd(TestDataRead.fileReadLineBinary(304),getEvenDataList());</span>
+<span class="fc" id="L70">			assertThat(&quot;EVEN:&quot;,actual, is(expected));</span>
+<span class="fc" id="L71">		}</span>
+
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>casestudy (2016/11/22 9:47:14)</div></body></html>

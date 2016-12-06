@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ja"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>CallSignFactory.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">casestudy (2016/11/22 9:47:14)</a> &gt; <a href="../../index.html" class="el_group">casestudy</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">casestudy</a> &gt; <span class="el_source">CallSignFactory.java</span></div><h1>CallSignFactory.java</h1><pre class="source lang-java linenums">package casestudy;
+
+<span class="nc" id="L3">public class CallSignFactory {</span>
+
+	private static final String MOJI_CODE = &quot;#ABCDEFGHIJKLMNOPQRSTUVWXYZ#####_###############0123456789######&quot;;
+	/**
+	 * dataからコールサイン解析
+	 * @param data SBS-3受信データ(バイナリ形式)
+	 * @return コールサイン
+	 */
+	public static String calcCallSign(String data){
+
+<span class="fc" id="L13">		StringBuilder callSignBuilder = new StringBuilder();</span>
+
+<span class="fc bfc" id="L15" title="All 2 branches covered.">		for(int i = 96; i &lt; 143; i += 6){</span>
+<span class="fc" id="L16">			callSignBuilder.append(MOJI_CODE.charAt(Integer.parseInt(data.substring(i,i+6), 2)));</span>
+		}
+
+<span class="fc" id="L19">		return callSignBuilder.toString();</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>casestudy (2016/11/22 9:47:14)</div></body></html>

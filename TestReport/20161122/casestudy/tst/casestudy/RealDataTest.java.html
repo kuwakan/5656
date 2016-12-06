@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ja"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>RealDataTest.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">casestudy (2016/11/22 9:47:14)</a> &gt; <a href="../../index.html" class="el_group">casestudy</a> &gt; <a href="../index.html" class="el_bundle">tst</a> &gt; <a href="index.source.html" class="el_package">casestudy</a> &gt; <span class="el_source">RealDataTest.java</span></div><h1>RealDataTest.java</h1><pre class="source lang-java linenums">package casestudy;
+
+<span class="nc" id="L3">public class RealDataTest {</span>
+
+	final static String ipAddress = &quot;192.168.3.171&quot;;
+	final static int portNum = 10001;
+
+	public static void main(String[] args) {
+		/*
+		 * SBS-3と接続
+		 */
+<span class="nc" id="L12">		SensorAccessObject testSOA = null;</span>
+<span class="nc" id="L13">		testSOA = new SensorAccessObject(ipAddress, portNum);</span>
+<span class="nc" id="L14">		testSOA.connect();</span>
+
+		/*
+		 * 10000行分のデータを受信、解析する
+		 */
+<span class="nc bnc" id="L19" title="All 2 branches missed.">		for(int i = 0;i &lt; 10000; i++){</span>
+<span class="nc" id="L20">			String hex = testSOA.readSensor();</span>
+<span class="nc" id="L21">			EvenAndOddMatcher.analyzeData(hex);</span>
+		}
+
+<span class="nc" id="L24">		System.out.println(&quot;!終了！&quot;);</span>
+
+<span class="nc" id="L26">		testSOA.close();</span>
+<span class="nc" id="L27">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>casestudy (2016/11/22 9:47:14)</div></body></html>

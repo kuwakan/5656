@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ja"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>HexToBinary.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">casestudy (2016/11/22 10:34:00)</a> &gt; <a href="../../index.html" class="el_group">casestudy</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">casestudy</a> &gt; <span class="el_source">HexToBinary.java</span></div><h1>HexToBinary.java</h1><pre class="source lang-java linenums">package casestudy;
+
+<span class="nc" id="L3">public class HexToBinary {</span>
+	public static String hexToBinary(String hex){
+<span class="fc" id="L5">		String data = new String();</span>
+<span class="fc" id="L6">		StringBuilder sb = new StringBuilder();</span>
+<span class="fc bfc" id="L7" title="All 2 branches covered.">		for(int j = 0; j &lt; hex.length(); j++){</span>
+<span class="fc" id="L8">			int ch = hex.charAt(j);</span>
+<span class="pc bpc" id="L9" title="1 of 8 branches missed.">			if((48 &lt;= ch &amp;&amp; ch &lt;= 57) || (97 &lt;= ch &amp;&amp; ch &lt;= 102)){</span>
+<span class="fc" id="L10">				String str = String.valueOf((char)ch);</span>
+<span class="fc" id="L11">				String binary = Integer.toBinaryString(Integer.parseInt(str, 16));</span>
+<span class="fc" id="L12">				binary = String.format(&quot;%04d&quot;, Integer.parseInt(binary));</span>
+<span class="fc" id="L13">				sb.append(binary);</span>
+			}
+		}
+<span class="fc" id="L16">		data = sb.toString();</span>
+<span class="fc" id="L17">		sb.delete(0, sb.length());</span>
+<span class="fc" id="L18">		return data;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>casestudy (2016/11/22 10:34:00)</div></body></html>

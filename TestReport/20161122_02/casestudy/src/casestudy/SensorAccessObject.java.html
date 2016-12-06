@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ja"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>SensorAccessObject.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">casestudy (2016/11/22 10:34:00)</a> &gt; <a href="../../index.html" class="el_group">casestudy</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">casestudy</a> &gt; <span class="el_source">SensorAccessObject.java</span></div><h1>SensorAccessObject.java</h1><pre class="source lang-java linenums">package casestudy;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+public class SensorAccessObject {
+	private String SbsIp;
+	private int SbsPort;
+<span class="fc" id="L11">	private Socket echoSocket = null;</span>
+<span class="fc" id="L12">	private BufferedInputStream inBynary = null;</span>
+
+	/**
+	 * コンストラクタ
+	 * @param SbsIp ソケット接続時のIP
+	 * @param SbsPort ポート番号
+	 */
+<span class="fc" id="L19">	public SensorAccessObject(String SbsIp,int SbsPort){</span>
+<span class="fc" id="L20">		this.SbsIp = SbsIp;</span>
+<span class="fc" id="L21">		this.SbsPort = SbsPort;</span>
+<span class="fc" id="L22">	}</span>
+
+	/**
+	 * 接続
+	 */
+	public void connect(){
+        try {
+<span class="fc" id="L29">            echoSocket = new Socket(SbsIp, SbsPort);</span>
+<span class="fc" id="L30">            inBynary = new BufferedInputStream(echoSocket.getInputStream());</span>
+<span class="pc" id="L31">            } catch (UnknownHostException e) {</span>
+<span class="nc" id="L32">            System.err.println(&quot;Don't know about host: SbsIp = &quot; + SbsIp);</span>
+<span class="nc" id="L33">            } catch (IOException e) {</span>
+<span class="nc" id="L34">            System.err.println(&quot;Couldn't get I/O for the connection to: SbsIp = &quot; + SbsIp);</span>
+            }
+<span class="fc" id="L36">	}</span>
+
+	/**
+	 * クローズ
+	 */
+	public void close(){
+		try{
+<span class="fc" id="L43">			inBynary.close();</span>
+<span class="fc" id="L44">			echoSocket.close();</span>
+<span class="pc" id="L45">		} catch (UnknownHostException e) {</span>
+<span class="nc" id="L46">            System.err.println(&quot;Trying to connect to unknown host: &quot; + e);</span>
+<span class="nc" id="L47">        } catch (IOException e) {</span>
+<span class="nc" id="L48">            System.err.println(&quot;IOException: &quot; + e);</span>
+		}
+<span class="fc" id="L50">	}</span>
+
+	/**
+	 * データの読み込み
+	 * @return スペース区切りのHexデータ
+	 */
+	public String readSensor(){
+<span class="fc" id="L57">		StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L58">		String hex2 = null;</span>
+<span class="fc" id="L59">		String hex = null;</span>
+		try{
+
+            // 読み込み用バイト配列
+<span class="fc" id="L63">            byte[] buf = new byte[1024];</span>
+            // 入力ストリームからの読み込み（ファイルの読み込み）
+<span class="fc" id="L65">            int len = inBynary.read(buf);</span>
+
+            // 読み込んだデータを16進形式で表示
+
+<span class="fc bfc" id="L69" title="All 2 branches covered.">	       	for ( int i = 0; i &lt; len; i++ ) {</span>
+<span class="fc" id="L70">	       		hex = String.format(&quot;%1$x &quot;, buf[i]);</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">	       		hex = hex.length() == 2 ? &quot;0&quot; + hex : hex;</span>
+<span class="fc" id="L72">	       		sb.append(hex);</span>
+
+	       	}
+<span class="fc" id="L75">	       	hex2 = sb.toString();</span>
+
+<span class="pc" id="L77">		} catch (UnknownHostException e) {</span>
+<span class="nc" id="L78">            System.err.println(&quot;Trying to connect to unknown host: &quot; + e);</span>
+<span class="nc" id="L79">        } catch (IOException e) {</span>
+<span class="nc" id="L80">            System.err.println(&quot;IOException: &quot; + e);</span>
+        }
+<span class="fc" id="L82">		return hex2;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>casestudy (2016/11/22 10:34:00)</div></body></html>

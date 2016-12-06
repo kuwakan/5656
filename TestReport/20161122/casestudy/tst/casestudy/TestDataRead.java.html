@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ja"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>TestDataRead.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">casestudy (2016/11/22 9:47:14)</a> &gt; <a href="../../index.html" class="el_group">casestudy</a> &gt; <a href="../index.html" class="el_bundle">tst</a> &gt; <a href="index.source.html" class="el_package">casestudy</a> &gt; <span class="el_source">TestDataRead.java</span></div><h1>TestDataRead.java</h1><pre class="source lang-java linenums">package casestudy;
+
+import static casestudy.HexToBinary.*;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+/**
+ * テストデータ読み取り用クラス
+ * @author anque
+ *
+ */
+<span class="nc" id="L15">public class TestDataRead {</span>
+	/**
+	 * 対象テストデータから指定した行を読み出す
+	 * @param filePath	対象ファイルのパス(省略可：省略時はtest1000.txt)
+	 * @param lineNo	対象行(1行目～)
+	 * @return	テストデータの指定した行の文字列
+	 */
+	public static String fileReadLine(String filePath,int lineNo) {
+<span class="fc" id="L23">		StringBuffer sb = new StringBuffer();</span>
+<span class="fc" id="L24">		FileReader fr = null;</span>
+<span class="fc" id="L25">		BufferedReader br = null;</span>
+<span class="fc" id="L26">		int nowLine = 1;</span>
+		try {
+<span class="fc" id="L28">			fr = new FileReader(filePath);</span>
+<span class="fc" id="L29">			br = new BufferedReader(fr);</span>
+			String line;
+<span class="fc bfc" id="L31" title="All 2 branches covered.">			while ((line = br.readLine()) != null) {</span>
+<span class="fc bfc" id="L32" title="All 2 branches covered.">				if(nowLine == lineNo)sb.append(line);</span>
+<span class="fc" id="L33">				nowLine++;</span>
+			}
+<span class="pc" id="L35">		} catch (FileNotFoundException e) {</span>
+<span class="nc" id="L36">			e.printStackTrace();</span>
+<span class="nc" id="L37">		} catch (IOException e) {</span>
+<span class="nc" id="L38">			e.printStackTrace();</span>
+<span class="nc" id="L39">		} finally {</span>
+			try {
+<span class="pc" id="L41">				br.close();</span>
+<span class="pc" id="L42">				fr.close();</span>
+<span class="pc" id="L43">			} catch (IOException e) {</span>
+<span class="nc" id="L44">			e.printStackTrace();</span>
+			}
+<span class="nc" id="L46">		}</span>
+<span class="fc" id="L47">		return sb.toString();</span>
+	}
+
+	public static String fileReadLine(int lineNo) {
+<span class="fc" id="L51">		return fileReadLine(&quot;test1000.txt&quot;,lineNo);</span>
+	}
+	public static String fileReadLineBinary(int lineNo) {
+<span class="fc" id="L54">		return hexToBinary(fileReadLine(&quot;test1000.txt&quot;,lineNo));</span>
+	}
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>casestudy (2016/11/22 9:47:14)</div></body></html>

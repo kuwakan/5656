@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ja"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>Velocity.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">casestudy (2016/11/22 10:34:00)</a> &gt; <a href="../../index.html" class="el_group">casestudy</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">casestudy</a> &gt; <span class="el_source">Velocity.java</span></div><h1>Velocity.java</h1><pre class="source lang-java linenums">package casestudy;
+
+public class Velocity {
+
+	private int s_Vr_;//垂直方向の動き
+	private double vr_;//垂直方向の速さ
+
+	private int deg_;//方位0～360
+	private double vel_;//速さ
+
+	//コンストラクタ
+<span class="fc" id="L12">	Velocity(int s_Vr, double vr, double deg, double vel){</span>
+<span class="fc" id="L13">		this.s_Vr_ = s_Vr;</span>
+<span class="fc" id="L14">		this.vr_ = vr;</span>
+<span class="fc" id="L15">		this.deg_ = (int)deg;</span>
+<span class="fc" id="L16">		this.vel_ = vel;</span>
+<span class="fc" id="L17">	}</span>
+
+	public int getS_Vr() {
+<span class="fc" id="L20">		return s_Vr_;</span>
+	}
+
+	public double getVr() {
+<span class="fc" id="L24">		return vr_;</span>
+	}
+
+	public int getDeg() {
+<span class="fc" id="L28">		return deg_;</span>
+	}
+
+	public double getVel() {
+<span class="fc" id="L32">		return vel_;</span>
+	}
+
+	@Override
+	public String toString(){
+<span class="fc" id="L37">		StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L38">		sb.append(s_Vr_);</span>
+<span class="fc" id="L39">		sb.append(&quot;,&quot;);</span>
+<span class="fc" id="L40">		sb.append(vr_);</span>
+<span class="fc" id="L41">		sb.append(&quot;,&quot;);</span>
+<span class="fc" id="L42">		sb.append(deg_);</span>
+<span class="fc" id="L43">		sb.append(&quot;,&quot;);</span>
+<span class="fc" id="L44">		sb.append(vel_);</span>
+<span class="fc" id="L45">		return (sb.toString());</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>casestudy (2016/11/22 10:34:00)</div></body></html>

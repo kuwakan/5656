@@ -18,6 +18,8 @@
 	</head>
 <body>
 
+
+
    <%if(t!=null){ %>
 
    <div class="toggles">
@@ -101,7 +103,15 @@
 	   <%} %>
    </div>
 
-<a href="N1.jsp">TOPへ戻る</a>
+  <form action="/connection/AdminEnd" method="post" >
+<input type="submit" value="管理者画面終了" />
+
+
+</form>>
+
+
+
+
 
 </body>
 </html>

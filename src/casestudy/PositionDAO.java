@@ -14,7 +14,7 @@ public class PositionDAO {
 
 	public Position[] findposi() throws SQLException {
 		String sql = "select * from position where timestamp in (select max(timestamp) from position group by modes)"
-				+ "and  timestamp > systimestamp-0.0004";
+				+ "and  timestamp > systimestamp-0.0008";
 				//+"and  extract(second from systimestamp)-extract(second from timestamp)  < 10"
 				//+"and  extract(minute from timestamp)-extract(minute from systimestamp)=0"
 				//+"and  extract(hour from timestamp)-extract(hour from systimestamp)=0";

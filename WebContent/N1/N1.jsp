@@ -27,7 +27,7 @@
 		<!-- Signup Form -->
 		<a class="btn btn-medium btn-blue btn-radius" href="radar/radar.html">RADAR CONTROL</a>
 
-			<form action="/connection/N1/administrator2.jsp" id=method="post" >
+			<form action="/connection/MakeScope" method="post" >
 				<input type="button" value="CLOSE" onClick="location.href='../index.html'">
 				<input type="submit" value="ADMINISTRATOR" />
 

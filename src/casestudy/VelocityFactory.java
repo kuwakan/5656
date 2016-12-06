@@ -31,7 +31,7 @@ public class VelocityFactory {
 	 */
 	public static double calcVerticalVerocity(String data) {
 		double vr;
-		vr = Integer.parseInt(data.substring(125,125+8), 2);
+		vr = (Integer.parseInt(data.substring(126,126+8), 2)-1) * 64;
 		return vr;
 	}
 
@@ -42,7 +42,7 @@ public class VelocityFactory {
 	 */
 	public static double calcHorizonDeg(String data) {
 		double deg;
-		deg = Math.atan(calcEWVelocity(data)/calcNSVelocity(data)) * 360.0 / (2 * Math.PI );
+		deg = Math.atan2(calcEWVelocity(data),calcNSVelocity(data)) * 360.0 / (2 * Math.PI );
 
 		if(deg < 0){
 			deg += 360;

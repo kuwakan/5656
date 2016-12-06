@@ -8,6 +8,7 @@ public class Beans implements Serializable{
 	 private RealData rd;
 	 private boolean isIn = false;
 	 private boolean isXml = false;
+	 private boolean isLogin = false;
 
 
 	public AircraftSerch getAcs() {
@@ -34,5 +35,12 @@ public class Beans implements Serializable{
 	}
 	public void setXml(boolean isXml) {
 		this.isXml = isXml;
+	}
+
+	public boolean isLogin() {
+		return isLogin;
+	}
+	public void setLogin(boolean isLogin) {
+		this.isLogin = isLogin;
 	}
 }

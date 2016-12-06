@@ -41,7 +41,7 @@ public class AircraftSerch  extends Thread {
 				velo = veDAO.findvelo(posi);
 				call = caDAO.findcall(posi);
 
-				Thread.sleep(500);
+				Thread.sleep(300);
 
 				if(posi == null || call == null || velo == null ){
 					System.out.println("そのような航空機くわはら");
@@ -88,30 +88,43 @@ public class AircraftSerch  extends Thread {
 				          document.appendChild(aircrafts);
 				      	//System.out.println("おっぱい");
 				          while(posi[i]!=null){
-						          Element aircraft = document.createElement("aircraft");
+
 						  		  System.out.println("おっぱい");
-									if(call[i]==null || posi[i]==null || velo[i]==null){System.out.println("XMLには全機体そろってないから書き込めない\n\n");}
-									else{
-						          aircraft.setAttribute("modeSaddress",velo[i].getModes());
+									//if(call[i]==null || velo[i]==null){System.out.println("XMLには全機体そろってないから書き込めない\n\n");}
+									//else{
+								Element aircraft = document.createElement("aircraft");
+								aircrafts.appendChild(aircraft);
+						          aircraft.setAttribute("modeSaddress",posi[i].getModes());
+						          if(call[i]!=null){
 						          aircraft.setAttribute("callsign",call[i].getCallsign() );
+						          }else{aircraft.setAttribute("callsign","????????");}
 						          aircraft.setAttribute("latitude",String.valueOf(posi[i].getLat()));
 						          aircraft.setAttribute("longitude",String.valueOf(posi[i].getLng()));
 						          aircraft.setAttribute("altitude",String.valueOf(posi[i].getAlt()));
+						          if(call[i]!=null){
 						          aircraft.setAttribute("h_velo",String.valueOf(velo[i].getH_velo()));
 						          aircraft.setAttribute("v_velo",String.valueOf(velo[i].getV_velo()));
 						          aircraft.setAttribute("h_dir",String.valueOf(velo[i].getH_dir()));
 						          aircraft.setAttribute("v_dir",String.valueOf(velo[i].getV_dir()));
+
+						          }else{
+						          aircraft.setAttribute("h_velo","????????");
+						          aircraft.setAttribute("v_velo","????????");
+						          aircraft.setAttribute("h_dir","????????");
+						          aircraft.setAttribute("v_dir","????????");}
+
+
 						          aircraft.setAttribute("timestamp",String.valueOf(posi[i].getTimestamp()));
 
-						          aircrafts.appendChild(aircraft);
-									}
+//}
+
 						          i++;
 				          }
 
 
 
 				          // XMLファイルの作成
-				          File file = new File("Aircraft.xml");
+				          File file = new File("../workspace/connection/WebContent/N1/Aircraft.xml");
 				          write(file, document);
 
 				          for(k=0;k<i;k++){

@@ -1,6 +1,6 @@
 package casestudy;
 
-public class Callsign {
+public class CallSignReadDB {
 
 
 
@@ -8,7 +8,7 @@ public class Callsign {
 
 	private String modes;
 
-	public Callsign(String modes, String callsign) {
+	public CallSignReadDB(String modes, String callsign) {
 		this.modes = modes;
 		this.callsign = callsign;
 	}

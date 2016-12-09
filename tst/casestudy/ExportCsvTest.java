@@ -17,9 +17,9 @@ public class ExportCsvTest {
 			System.out.println("接続完了");
 
 			DBWriter dbWriter = new DBWriter(con);
-			dbWriter.createCSV("callsign");
-			dbWriter.createCSV("velocity");
-			dbWriter.createCSV("position");
+			dbWriter.createCSV("テストcallsign");
+			dbWriter.createCSV("テストvelocity");
+			dbWriter.createCSV("テストposition");
 			System.out.println("エクスポート完了");
 
 		}catch (Exception e) {

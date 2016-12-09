@@ -13,7 +13,7 @@ public class PositionDAO {
 		this.con = con;
 	}
 
-	public Position[] findposi() throws SQLException {
+	public PlanePositionReadDB[] findposi() throws SQLException {
 		String sql = "select * from position where timestamp in (select max(timestamp) from position group by modes)"
 				+ "and  timestamp > systimestamp-0.0008";
 				//+"and  extract(second from systimestamp)-extract(second from timestamp)  < 10"
@@ -25,7 +25,7 @@ public class PositionDAO {
 
 		PreparedStatement stmt = null;
 		ResultSet res = null;
-		Position posi[] = new Position[100];
+		PlanePositionReadDB posi[] = new PlanePositionReadDB[100];
 
 
 		try{
@@ -37,7 +37,7 @@ public class PositionDAO {
 
 
 
-				posi[i] = new Position(//列の名前を書く.その列のデータをとってきてくれる
+				posi[i] = new PlanePositionReadDB(//列の名前を書く.その列のデータをとってきてくれる
 						res.getString("modes"),
 						res.getFloat("latitude"),
 						res.getFloat("longitude"),

@@ -13,11 +13,11 @@ public class CallsignDAO {
 		this.con = con;
 	}
 
-	public Callsign[] findcall(Position[] posi) throws SQLException {
+	public CallSignReadDB[] findcall(PlanePositionReadDB[] posi) throws SQLException {
 		String sql = "select * from callsign where timestamp in (select max(timestamp) from callsign group by modes) and modes = ?";
 		PreparedStatement stmt = con.prepareStatement(sql);
 		ResultSet res = null;
-		Callsign call[] = new Callsign[100];
+		CallSignReadDB call[] = new CallSignReadDB[100];
 
 
 		int i=0;
@@ -29,7 +29,7 @@ public class CallsignDAO {
 				res = stmt.executeQuery();//sqlをとってくる
 				System.out.print(posi[i].getModes());
 				if(res.next()){
-					call[i] = new Callsign(//列の名前を書く.その列のデータをとってきてくれる
+					call[i] = new CallSignReadDB(//列の名前を書く.その列のデータをとってきてくれる
 							res.getString("modes"),
 							res.getString("callsign")
 							);

@@ -23,9 +23,9 @@ public class AircraftSerch  extends Thread {
 
 	public void run(){
 		Connection con = null;
-		Velocity2[] velo = null;
-		Position[] posi = null;
-		Callsign[] call = null;
+		VelocityReadDB[] velo = null;
+		PlanePositionReadDB[] posi = null;
+		CallSignReadDB[] call = null;
 
 		while(dox){
 			try{

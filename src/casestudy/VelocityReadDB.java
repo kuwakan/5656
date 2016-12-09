@@ -1,6 +1,6 @@
 package casestudy;
 
-public class Velocity2 {
+public class VelocityReadDB {
 
 
 	private String modes;
@@ -15,7 +15,7 @@ public class Velocity2 {
 
 	private float v_dir;
 
-	public Velocity2(String modes, float h_velo, float v_velo,float h_dir, float v_dir ){
+	public VelocityReadDB(String modes, float h_velo, float v_velo,float h_dir, float v_dir ){
 		this.modes = modes;
 		this.h_velo = h_velo;
 		this.v_velo = v_velo;

@@ -20,7 +20,6 @@ public class RepositoryChooser {
 		fd.setVisible(true);
 		fd.toFront();
 
-
 		//ディレクトリーの取得
 		dir = fd.getDirectory();
 

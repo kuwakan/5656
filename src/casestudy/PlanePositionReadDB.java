@@ -2,7 +2,7 @@ package casestudy;
 
 import java.sql.Timestamp;
 
-public class Position {
+public class PlanePositionReadDB {
 
 	private String modes;
 
@@ -17,7 +17,7 @@ public class Position {
 
 	private Timestamp timestamp;
 
-	public Position(String modes,  float lat,  float lng, float alt, Timestamp timestamp){
+	public PlanePositionReadDB(String modes,  float lat,  float lng, float alt, Timestamp timestamp){
 		this.modes = modes;
 		this.lat = lat;
 		this.lng = lng;

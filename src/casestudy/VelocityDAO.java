@@ -14,13 +14,13 @@ public class VelocityDAO {
 		this.con = con;
 	}
 
-	public Velocity2[] findvelo(Position[] posi) throws SQLException {
+	public VelocityReadDB[] findvelo(PlanePositionReadDB[] posi) throws SQLException {
 
 
 		String sql = "select * from velocity where timestamp in (select max(timestamp) from velocity group by modes) and modes = ?";
 		PreparedStatement stmt = con.prepareStatement(sql);
 		ResultSet res = null;
-		Velocity2[] velo = new Velocity2[100];
+		VelocityReadDB[] velo = new VelocityReadDB[100];
 
 		int i=0;
 		try{
@@ -31,7 +31,7 @@ public class VelocityDAO {
 				stmt.setString(1,posi[i].getModes());
 				res = stmt.executeQuery();//sqlをとってくる
 				if(res.next()){
-					velo[i] = new Velocity2(//列の名前を書く.その列のデータをとってきてくれる
+					velo[i] = new VelocityReadDB(//列の名前を書く.その列のデータをとってきてくれる
 							res.getString("modes"),
 							res.getFloat("h_velocity"),
 							res.getFloat("v_velocity"),

@@ -13,6 +13,7 @@
 
 	<link rel="stylesheet" href="./assets/css/button.css" />
 	<link rel="stylesheet" href="./assets/css/toggle.css" />
+	<link rel="stylesheet" href="./assets/css/dbbutton.css" />
 
 
 	</head>
@@ -52,7 +53,7 @@
 
 
 <button>
-  送信する？
+  Are you sure?
 </button>
 
 
@@ -91,7 +92,7 @@
 
 
 <button>
- 送信する？
+ Are you sure?
 </button>
 
 
@@ -104,21 +105,40 @@
    </div>
 
 
-  <form action="/connection/AdminEnd" method="post" >
-<input type="submit" value="DB止める" />
+
+<br><br><br><br><br><br>
+
+<li><a href="#" class="round green" onclick="document.form1.submit();return false;">ADMIN END<span class="round">管理者画面を終了します</span></a>
+
+ <form name="form1" method="POST" action="/connection/AdminEnd" >
 
 
-</form>>
+</form>
+</li>
+
+<li><a href="#" class="round red"" onclick="document.form2.submit();return false;">DB RESET<span class="round">DBを全て消します</span></a>
+
+ <form name="form2" method="POST" action="/connection/DBdeleteServlet" >
+
+
+</form>
+</li>
+
+<li><a href="#" class="round yellow" onclick="document.form3.submit();return false;">PRESERVE DB<span class="round">DBをCSVで保存します</span></a>
+
+ <form name="form3" method="POST" action="/connection/CsvMaker" >
+
+
+</form>
+</li>
 
 
 
 
 
-  <form action="/connection/AdminEnd" method="post" >
-<input type="submit" value="管理者画面終了" />
 
 
-</form>>
+
 
 
 

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<aircrafts>
-<aircraft altitude="16925.0" callsign="ANA764__" h_dir="31.0" h_velo="455.7" latitude="34.084763" longitude="135.14316" modeSaddress="86cf7c" timestamp="2016-12-06 11:26:35.362" v_dir="1.0" v_velo="2560.0"/>
-<aircraft altitude="11300.0" callsign="ANA505__" h_dir="232.0" h_velo="307.85" latitude="34.626526" longitude="135.26855" modeSaddress="868094" timestamp="2016-12-06 11:27:11.974" v_dir="0.0" v_velo="1728.0"/>
-<aircraft altitude="11225.0" callsign="SFJ23___" h_dir="80.0" h_velo="289.84" latitude="34.12001" longitude="135.41792" modeSaddress="841442" timestamp="2016-12-06 11:26:17.564" v_dir="0.0" v_velo="0.0"/>
-<aircraft altitude="12950.0" callsign="JAL2464_" h_dir="34.0" h_velo="319.52" latitude="34.270176" longitude="135.28519" modeSaddress="851bdc" timestamp="2016-12-06 11:27:21.304" v_dir="1.0" v_velo="1728.0"/>
-<aircraft altitude="26100.0" callsign="SNJ15___" h_dir="266.0" h_velo="420.8" latitude="34.862877" longitude="134.94095" modeSaddress="86cec5" timestamp="2016-12-06 11:26:26.945" v_dir="1.0" v_velo="64.0"/>
-</aircrafts>

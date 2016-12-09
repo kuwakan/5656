@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class VelocityDAO {
 
@@ -79,5 +80,50 @@ public class VelocityDAO {
 		}
 
 		return velocity;
+	}
+
+	public void resetVelocityDB()  throws SQLException {
+		Statement stmt = null;
+
+		try{
+
+			stmt = con.createStatement();
+			stmt.executeUpdate("TRUNCATE TABLE velocity");
+
+
+		}catch (SQLException e){
+
+			  System.out.println("SQLException:" + e.getMessage());
+
+		}finally{
+
+			if(stmt != null){
+				stmt.close();
+			}
+			System.out.println("Velocityテーブルリセット完了");
+
+		}
+
+	}
+
+	public void exportVelocityCSV() throws SQLException {
+		try {
+
+
+
+			DBWriter dbWriter = new DBWriter(con);
+
+			dbWriter.createCSV("velocity");
+
+			System.out.println("エクスポート完了");
+
+		}catch (Exception e) {
+			// 何らかのエラーがあっても表示するのみ
+			System.out.println("エラーです");
+			e.printStackTrace();
+		}
+
+
+
 	}
 }

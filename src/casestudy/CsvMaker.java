@@ -1,7 +1,6 @@
 package casestudy;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,16 +9,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class DBdeleteServlet
+ * Servlet implementation class CsvMaker
  */
-@WebServlet("/DBdeleteServlet")
-public class DBdeleteServlet extends HttpServlet {
+@WebServlet("/CsvMaker")
+public class CsvMaker extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DBdeleteServlet() {
+    public CsvMaker() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,20 +35,11 @@ public class DBdeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ExportCSV ecsv = new ExportCSV();
+		ecsv.exportCSV();
 
-		ResetDB reset = new ResetDB();
-		try {
-			reset.resetDB();
-		} catch (SQLException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
 
 		response.sendRedirect("N1/administrator2.jsp");
-
-
-
-
 	}
 
 }

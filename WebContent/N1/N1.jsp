@@ -25,7 +25,7 @@
 			</header>
 
 		<!-- Signup Form -->
-		<a class="btn btn-medium btn-blue btn-radius" href="radar/radar.html">RADAR CONTROL</a>
+		<a class="btn btn-medium btn-blue btn-radius" href="./radar/radar.html">RADAR CONTROL</a>
 
 			<form action="/connection/MakeScope" method="post" >
 				<input type="button" value="CLOSE" onClick="location.href='../index.html'">

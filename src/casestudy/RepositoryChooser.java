@@ -25,8 +25,8 @@ public class RepositoryChooser {
 		//File名の取得
 		fileName = fd.getFile();
 
-		//ファイル名の設定が無ければ処理中止
-		if(fileName == null) System.exit(0);
+//		//ファイル名の設定が無ければ処理中止
+//		if(fileName == null) System.exit(0);
 
 	}
 

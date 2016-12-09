@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<aircrafts>
+<aircraft altitude="3675.0" callsign="CCA162__" h_dir="236.0" h_velo="209.68" latitude="34.3813" longitude="135.16362" modeSaddress="78059f" timestamp="2016-12-09 09:11:23.604" v_dir="0.0" v_velo="2112.0"/>
+<aircraft altitude="4075.0" callsign="TWB281__" h_dir="64.0" h_velo="283.58" latitude="34.524258" longitude="134.99817" modeSaddress="71c030" timestamp="2016-12-09 09:11:33.033" v_dir="1.0" v_velo="1152.0"/>
+<aircraft altitude="25700.0" callsign="CQH9000_" h_dir="256.0" h_velo="336.92" latitude="34.468163" longitude="134.48679" modeSaddress="7809ac" timestamp="2016-12-09 09:11:48.409" v_dir="0.0" v_velo="1536.0"/>
+<aircraft altitude="38975.0" callsign="????????" h_dir="????????" h_velo="????????" latitude="34.20798" longitude="135.03833" modeSaddress="861ae4" timestamp="2016-12-09 09:11:48.475" v_dir="????????" v_velo="????????"/>
+<aircraft altitude="18125.0" callsign="????????" h_dir="????????" h_velo="????????" latitude="35.038193" longitude="134.97438" modeSaddress="842250" timestamp="2016-12-09 09:12:01.481" v_dir="????????" v_velo="????????"/>
+<aircraft altitude="20100.0" callsign="CSN394__" h_dir="270.0" h_velo="267.02" latitude="34.535057" longitude="134.84149" modeSaddress="780591" timestamp="2016-12-09 09:12:24.9" v_dir="0.0" v_velo="2944.0"/>
+<aircraft altitude="17625.0" callsign="ANA763__" h_dir="243.0" h_velo="323.34" latitude="34.409737" longitude="135.04532" modeSaddress="867838" timestamp="2016-12-09 09:12:25.15" v_dir="0.0" v_velo="2048.0"/>
+<aircraft altitude="1675.0" callsign="APJ012__" h_dir="230.0" h_velo="128.69" latitude="34.510895" longitude="135.3289" modeSaddress="86d20d" timestamp="2016-12-09 09:11:58.98" v_dir="1.0" v_velo="448.0"/>
+<aircraft altitude="36075.0" callsign="NH791___" h_dir="257.0" h_velo="327.25" latitude="34.741795" longitude="134.38333" modeSaddress="845d88" timestamp="2016-12-09 09:12:15.845" v_dir="0.0" v_velo="0.0"/>
+</aircrafts>

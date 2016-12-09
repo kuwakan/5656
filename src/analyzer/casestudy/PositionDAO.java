@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class PositionDAO {
 
@@ -84,4 +85,51 @@ public class PositionDAO {
 
 		return position;
 	}
+
+	public void resetPositionDB()  throws SQLException {
+		Statement stmt = null;
+
+		try{
+
+			stmt = con.createStatement();
+			stmt.executeUpdate("TRUNCATE TABLE position");
+
+
+		}catch (SQLException e){
+
+			  System.out.println("SQLException:" + e.getMessage());
+
+		}finally{
+
+			if(stmt != null){
+				stmt.close();
+			}
+			System.out.println("Positionテーブルリセット完了");
+
+		}
+
+	}
+
+	public void exportPositionCSV() throws SQLException {
+		try {
+
+
+
+			DBWriter dbWriter = new DBWriter(con);
+			dbWriter.createCSV("position");
+
+			System.out.println("エクスポート完了");
+
+		}catch (Exception e) {
+			// 何らかのエラーがあっても表示するのみ
+			System.out.println("エラーです");
+			e.printStackTrace();
+		}
+
+
+
+	}
+
+
+
 }

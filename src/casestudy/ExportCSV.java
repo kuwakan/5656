@@ -13,11 +13,16 @@ public class ExportCSV {
 			con = ConnectionManager.getConnection();
 			System.out.println("接続完了");
 
-			DBWriter dbWriter = new DBWriter(con);
-			dbWriter.createCSV("callsign");
-			dbWriter.createCSV("velocity");
-			dbWriter.createCSV("position");
-			System.out.println("エクスポート完了");
+			CallsignDAO caDAO = new CallsignDAO(con);
+			VelocityDAO veDAO = new VelocityDAO(con);
+			PositionDAO poDAO = new PositionDAO(con);
+
+			caDAO.exportCallSignCSV();
+			veDAO.exportVelocityCSV();
+			poDAO.exportPositionCSV();
+
+
+
 
 		}catch (Exception e) {
 			// 何らかのエラーがあっても表示するのみ

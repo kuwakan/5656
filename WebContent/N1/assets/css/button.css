@@ -31,7 +31,7 @@ body {
 
 button {
   position: absolute;
-  top: 80%;
+  top: 60%;
   left: 52%;
   transform: translate(-50%, -50%);
 }

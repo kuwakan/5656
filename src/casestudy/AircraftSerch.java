@@ -124,7 +124,7 @@ public class AircraftSerch  extends Thread {
 
 
 				          // XMLファイルの作成
-				          File file = new File("../workspace/connection/WebContent/N1/radar/Aircraft.xml");
+				          File file = new File("X:\\Public\\XMLtest\\Aircraft.xml");
 				          write(file, document);
 
 				          for(k=0;k<i;k++){

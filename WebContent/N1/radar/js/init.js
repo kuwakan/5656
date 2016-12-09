@@ -4,18 +4,18 @@ head.insertBefore=function(newElement,referenceElement){
 if(newElement.href && newElement.href.indexOf('https://fonts.googleapis.com/css?family=Roboto') === 0){return}
 insertBefore.call(head,newElement,referenceElement);
 };
-var GSI_NORMAL_ID = 'ínóùâ@';
-var GSI_GAZO_OLD = 'é ê^61-64';
-var GSI_GAZO_I = 'çëìyâÊëú74-78';
-var GSI_Color = 'êFï ïWçÇê}';
-var GSI_SAT = 'ínóùâ@é ê^';
+var GSI_NORMAL_ID = '?n???@';
+var GSI_GAZO_OLD = '??^61-64';
+var GSI_GAZO_I = '???y??74-78';
+var GSI_Color = '?F??W???}';
+var GSI_SAT = '?n???@??^';
 var geocoder;
 
-//vincentyÇÃéÆ
+//vincenty???
 var check;
 var Radius_long = 6378137.0;
 var Henpei = 1/298.257222101;
-var Radius_short = Radius_long * (1 - Henpei); // 6356752.314 
+var Radius_short = Radius_long * (1 - Henpei); // 6356752.314
 var estlat;
 var estlng;
 function doRad(a){
@@ -42,7 +42,7 @@ function vincenty(lat1,lng1,alpha12,length){
     var dSigma = B * Math.sin(sigma) * ( Math.cos(dm2) + B / 4 * x);
     sigma = length / Radius_short / A + dSigma;
   } while ( Math.abs(sigma0 - sigma)>1e-9 );
- 
+
   var x = Math.sin(U1) * Math.cos(sigma) + Math.cos(U1) * Math.sin(sigma) * Math.cos(alpha12)
   var y = (1 - Henpei) * xy ( xy( Math.sin(alpha),2) + xy( Math.sin(U1) * Math.sin(sigma) - Math.cos(U1) * Math.cos(sigma) * Math.cos(alpha12) ,2) , 1 / 2);
   var lamda = Math.sin(sigma) * Math.sin(alpha12) / (Math.cos(U1) * Math.cos(sigma) - Math.sin(U1) * Math.sin(sigma) * Math.cos(alpha12));
@@ -59,12 +59,12 @@ function calcVincenty(lat1,lng1,alpha12,length){
   lng1=doRad(lng1);
   alpha12=doRad(alpha12);
   length=length*1852/3600;
-  
-  
-  vincenty(lat1,lng1,alpha12,length); 
+
+
+  vincenty(lat1,lng1,alpha12,length);
   return ;
 }
-//Ç±Ç±Ç‹Ç≈Ç ÇÈÇ ÇÈèàóù
+//??????????Èèà??
 
 var gmarkers = [];
 var sidebarList = [];
@@ -92,21 +92,21 @@ var icon = {
 
 
 function IsArrayExists(array, value) {
-  // îzóÒÇÃç≈å„Ç‹Ç≈ÉãÅ[Év
+  // ?z?????????[?v
   for (var i =0, len = array.length; i < len; i++) {
     if (value == array[i]) {
-      // ë∂ç›ÇµÇΩÇÁtrueÇï‘Ç∑
+      // ?????????true????
       return true;
     }
   }
-  // ë∂ç›ÇµÇ»Ç¢èÍçáfalseÇï‘Ç∑
+  // ??????????false????
   return false;
 }
 
-/** google.maps.OverlayViewÇåpè≥ */
+/** google.maps.OverlayView???p?? */
 HelloMarker.prototype = new google.maps.OverlayView();
 
-/* HelloMarkerÇÃÉRÉìÉXÉgÉâÉNÉ^ÅBà‹ìxÅAåyìxÇÉÅÉìÉoïœêîÇ…ê›íËÇ∑ÇÈÅB */
+/* HelloMarker??R???X?g???N?^?B??x?A?y?x???????o?????????B */
 function HelloMarker(map, lat, lng ,alt,velocity,callsign) {
   this.lat_ = lat;
   this.lng_ = lng;
@@ -115,13 +115,13 @@ function HelloMarker(map, lat, lng ,alt,velocity,callsign) {
   this.callsign = callsign;
   this.setMap(map);
 }
-      /* ÉeÉXÉgÉRÅ[ÉhÅFsetPositionÇåƒÇ—èoÇµÇƒÇ›ÇÈ */
+      /* ?e?X?g?R?[?h?FsetPosition????—èo?????? */
 function markerMoveByLatlng( marker, lat, lng ) {
  //       var latlng = marker.getPosition();
         marker.setPosition( lat, lng );
       }
 
-      /* åªç›ç¿ïWÇ≈à íuÇê›íËÇ∑ÇÈÅBéÛÇØéÊÇ¡ÇΩç¿ïWÇÕfromLatLngToDivPixelÇ≈PixelÇ…ïœä∑ÇµÇƒDivÇÃÉXÉ^ÉCÉãÇ…ê›íËÅB */
+      /* ??????W???u??????B? ???????W??fromLatLngToDivPixel??Pixel????????Div??X?^?C??????B */
       HelloMarker.prototype.setPosition = function(lat, lng) {
         this.lat_ = lat;
         this.lng_ = lng;
@@ -129,43 +129,43 @@ function markerMoveByLatlng( marker, lat, lng ) {
   this.div_.style.left = point.x +20+ 'px';
   this.div_.style.top = point.y -30+ 'px';
       }
-      /* åªç›ç¿ïWÇLatLngå^Ç≈ï‘Ç∑ */
+      /* ??????W??LatLng?^???? */
       HelloMarker.prototype.getPosition = function() {
         return new google.maps.LatLng( this.lat_, this.lng_ );
       }
 
 
 
-/** drawÇÃé¿ëïÅBdivóvëfÇê∂ê¨ */
+/** draw??????Bdiv?v?f? ? */
 HelloMarker.prototype.draw = function() {
-  // âΩìxÇ‡åƒÇŒÇÍÇÈâ¬î\ê´Ç™Ç†ÇÈÇÃÇ≈ÅAdiv_Ç™ñ¢ê›íËÇÃèÍçáÇÃÇ›óvëfê∂ê¨
+  // ???x????????\??????????Adiv_????????????v?f????
   if (!this.div_) {
-    // èoóÕÇµÇΩÇ¢óvëfê∂ê¨
+    // ?o????????v?f????
     this.div_ = document.createElement( "div" );
     this.div_.style.position = "absolute";
     this.div_.style.fontSize = "95%";
     this.div_.style.color = 'red';
-    this.div_.style.fontWeight = 'bolder'; 
+    this.div_.style.fontWeight = 'bolder';
     this.div_.style.borderBottom = "solid 1px black";
 //    this.div_.style.background = '#c0c0c0';
-//    this.div_.style.backgroundAttachment = 'fixed'; 
+//    this.div_.style.backgroundAttachment = 'fixed';
     this.div_.innerHTML = this.callsign+"<BR />"+this.altitude+" "+this.h_velocity;
-    // óvëfÇí«â¡Ç∑ÇÈéqÇéÊìæ
+    // ?v?f????????q???Êìæ
     var panes = this.getPanes();
-    // óvëfí«â¡
+    // ?v?f???
     panes.overlayLayer.appendChild( this.div_ );
   }
 
-  // à‹ìxÅAåyìxÇÃèÓïÒÇÅAPixelÅigoogle.maps.PointÅjÇ…ïœä∑
+  // ??x?A?y?x??????APixel?igoogle.maps.Point?j????
   var point = this.getProjection().fromLatLngToDivPixel( new google.maps.LatLng( this.lat_, this.lng_ ) );
 
-  // éÊìæÇµÇΩPixelèÓïÒÇÃç¿ïWÇ…ÅAóvëfÇÃà íuÇê›íË
-  // Ç±ÇÍÇ≈35.5, 140.0ÇÃà íuÇç∂è„ÇÃç¿ïWÇ∆Ç∑ÇÈà íuÇ…óvëfÇ™ê›íËÇ≥ÇÍÇÈ
+  // ?Êìæ????Pixel??????W??A?v?f???u????
+  // ?????35.5, 140.0???u?????????W??????u??v?f????????
   this.div_.style.left = point.x +20+ 'px';
   this.div_.style.top = point.y -30+ 'px';
 }
 
-/* çÌèúèàóùÇÃé¿ëï */
+/* ??????????? */
 HelloMarker.prototype.remove = function() {
   if (this.div_) {
     this.div_.parentNode.removeChild(this.div_);
@@ -189,10 +189,10 @@ function createMarker(modesaddress,latitude,longitude,altitude,h_velocity,callsi
         marker[i].setPosition(new google.maps.LatLng(latitude,longitude));
         mark[i].div_.innerHTML = callsign+"<BR />"+alt+" "+velocity;
 	markerMoveByLatlng( mark[i], latitude, longitude) ;
-	
+
 	kesuhairetu[i] = 0;
     }else if(hantei[i]==1){
-    	//Ç≥Ç∆Ç§Ç ÇÈÇ ÇÈÇ≈Ç∑
+    	//????????????
     	var pos = marker[i].getPosition();
     	newIcon = marker[i].getIcon();
 	var lat1 = pos.lat();
@@ -211,19 +211,19 @@ function createMarker(modesaddress,latitude,longitude,altitude,h_velocity,callsi
   }
 if(! IsArrayExists(modeSArray, modesaddress)) {
 marker[i] = new google.maps.Marker({
-	map: map, //É}Å[ÉJÅ[Çï\é¶Ç∑ÇÈínê}ñº
-	position: new google.maps.LatLng(latitude,longitude), //É}Å[ÉJÅ[ÇÃï\é¶à íu
-	icon: icon, //É}Å[ÉJÅ[ÉAÉCÉRÉìÇÃê›íË
-	title: callsign //ÉIÉìÉ}ÉEÉXÇ≈ï\é¶Ç≥ÇπÇÈï∂éö
+	map: map, //?}?[?J?[??\??????n?}??
+	position: new google.maps.LatLng(latitude,longitude), //?}?[?J?[??\????u
+	icon: icon, //?}?[?J?[?A?C?R??????
+	title: callsign //?I???}?E?X??\??????????
 
-});  
+});
 	kesuhairetu[i] = 0;
 	mark[i] = new HelloMarker( map, latitude,longitude,alt,velocity,callsign );
 	gmark.push(mark[i]);
     	var newIcon = marker[i].getIcon();
 	newIcon.rotation = onedirection;
 	marker[i].setIcon(newIcon);
-	
+
 	gmarkers.push(marker[i]);
 	modeSArray.push(modesaddress);
 	hantei[i] = 1;
@@ -231,14 +231,14 @@ marker[i] = new google.maps.Marker({
 	sidebarList[i] = '<a href="javascript:myclick('+ i +')">'+ callsign +'</a><br />';
 	 var html = "CALL SIGN:"+callsign+"<BR />ALTITUDE:"+altitude+"<BR />VELOCITY"+h_velocity;
 	 google.maps.event.addListener(marker[i], 'click', function() {
-		 infoWindow.setContent(html); //èÓïÒÉEÉBÉìÉhÉEÇÃì‡óe
-		 infoWindow.open(map,marker[i]); //èÓïÒÉEÉBÉìÉhÉEÇï\é¶
-		 map.panTo(point); //É}Å[ÉJÅ[Çínê}ÇÃíÜêSà íuÇ…à⁄ìÆ
+		 infoWindow.setContent(html); //???E?B???h?E????e
+		 infoWindow.open(map,marker[i]); //???E?B???h?E??\??
+		 map.panTo(point); //?}?[?J?[??n?}????S??u????
 	});
   }
 
 
-	
+
 
 
 
@@ -246,11 +246,11 @@ marker[i] = new google.maps.Marker({
 }
 function myclick(num) { google.maps.event.trigger(marker[num], "click"); }
 function zoomInOut(value) { map.setZoom(map.getZoom()+value); }
-	
-	
+
+
 function initialize() {
-  geocoder = new google.maps.Geocoder();	
-	gmark= new google.maps.MVCArray();	
+  geocoder = new google.maps.Geocoder();
+	gmark= new google.maps.MVCArray();
 	gmarkers= new google.maps.MVCArray();
     var mapOptions = {
     		zoom: 10,
@@ -260,7 +260,7 @@ function initialize() {
     		mapTypeControl: true,
     		scaleControl: false,
     		center: new google.maps.LatLng(34.410605,135.295360),
-    
+
     		mapTypeControlOptions: {mapTypeIds: [
     		 'radarmap',
    		 google.maps.MapTypeId.ROADMAP,
@@ -273,14 +273,14 @@ function initialize() {
     		GSI_Color,
  //  		 GSI_SAT
  		 ]},
-    		scrollwheel: true,//É}ÉEÉXÉzÉCÅ[ÉãÇ≈ÇÃÉYÅ[ÉÄ
-	   
+    		scrollwheel: true,//?}?E?X?z?C?[?????Y?[??
+
               };
 
 	map = new google.maps.Map(document.getElementById("map_canvas"),
             mapOptions);
 
- /* ÉXÉ^ÉCÉãïtÇ´ínê} */
+ /* ?X?^?C???t???n?} */
   var styleOptions = [{
  "elementType": "geometry", "stylers": [ { "color": "#1d2c4d" } ] }, { "elementType": "labels", "stylers": [ { "visibility": "off" } ] }, { "elementType": "labels.text.fill", "stylers": [ { "color": "#8ec3b9" } ] }, { "elementType": "labels.text.stroke", "stylers": [ { "color": "#1a3646" } ] }, { "featureType": "administrative", "elementType": "geometry", "stylers": [ { "visibility": "off" } ] }, { "featureType": "administrative.country", "elementType": "geometry.stroke", "stylers": [ { "color": "#4b6878" } ] }, { "featureType": "administrative.land_parcel", "elementType": "labels.text.fill", "stylers": [ { "color": "#64779e" } ] }, { "featureType": "administrative.neighborhood", "stylers": [ { "visibility": "off" } ] }, { "featureType": "administrative.province", "elementType": "geometry.stroke", "stylers": [ { "color": "#4b6878" } ] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [ { "visibility": "off" } ] }, { "featureType": "landscape.man_made", "elementType": "geometry.stroke", "stylers": [ { "color": "#334e87" } ] }, { "featureType": "landscape.natural", "elementType": "geometry", "stylers": [ { "color": "#023e58" }, { "visibility": "simplified" } ] }, { "featureType": "poi", "stylers": [ { "visibility": "off" } ] }, { "featureType": "poi", "elementType": "geometry", "stylers": [ { "color": "#283d6a" } ] }, { "featureType": "poi", "elementType": "labels.text.fill", "stylers": [ { "color": "#6f9ba5" } ] }, { "featureType": "poi", "elementType": "labels.text.stroke", "stylers": [ { "color": "#1d2c4d" } ] }, { "featureType": "poi.park", "elementType": "geometry.fill", "stylers": [ { "color": "#023e58" } ] }, { "featureType": "poi.park", "elementType": "labels.text.fill", "stylers": [ { "color": "#3C7680" } ] }, { "featureType": "road", "stylers": [ { "visibility": "off" } ] }, { "featureType": "road", "elementType": "geometry", "stylers": [ { "color": "#304a7d" } ] }, { "featureType": "road", "elementType": "labels.icon", "stylers": [ { "visibility": "off" } ] }, { "featureType": "road", "elementType": "labels.text.fill", "stylers": [ { "color": "#98a5be" } ] }, { "featureType": "road", "elementType": "labels.text.stroke", "stylers": [ { "color": "#1d2c4d" } ] }, { "featureType": "road.highway", "elementType": "geometry", "stylers": [ { "color": "#2c6675" } ] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [ { "color": "#255763" } ] }, { "featureType": "road.highway", "elementType": "labels.text.fill", "stylers": [ { "color": "#b0d5ce" } ] }, { "featureType": "road.highway", "elementType": "labels.text.stroke", "stylers": [ { "color": "#023e58" } ] }, { "featureType": "transit", "stylers": [ { "visibility": "off" } ] }, { "featureType": "transit", "elementType": "labels.text.fill", "stylers": [ { "color": "#98a5be" } ] }, { "featureType": "transit", "elementType": "labels.text.stroke", "stylers": [ { "color": "#1d2c4d" } ] }, { "featureType": "transit.line", "elementType": "geometry.fill", "stylers": [ { "color": "#283d6a" } ] }, { "featureType": "transit.station", "elementType": "geometry", "stylers": [ { "color": "#3a4762" } ] }, { "featureType": "water", "elementType": "geometry", "stylers": [ { "color": "#0e1626" } ] }, { "featureType": "water", "elementType": "labels.text.fill", "stylers": [ { "color": "#4e6d70" } ]
   }];
@@ -288,8 +288,8 @@ function initialize() {
   var lopanType = new google.maps.StyledMapType(styleOptions, styledMapOptions);
   map.mapTypes.set('radarmap', lopanType);
   map.setMapTypeId('radarmap');
-            
- map.mapTypes.set(GSI_NORMAL_ID, {name: 'GSI', tileSize: new google.maps.Size(256, 256), minZoom: 2, maxZoom: 18, 
+
+ map.mapTypes.set(GSI_NORMAL_ID, {name: 'GSI', tileSize: new google.maps.Size(256, 256), minZoom: 2, maxZoom: 18,
     getTile: function(coord, zoom, own) {
       var tile = own.createElement('img');
       tile.style.width = '256px';
@@ -300,7 +300,7 @@ function initialize() {
       return tile;
     }
   });
-  map.mapTypes.set(GSI_GAZO_OLD, {name: '61-64', tileSize: new google.maps.Size(256, 256), minZoom: 15, maxZoom: 17, 
+  map.mapTypes.set(GSI_GAZO_OLD, {name: '61-64', tileSize: new google.maps.Size(256, 256), minZoom: 15, maxZoom: 17,
     getTile: function(coord, zoom, own) {
       var img = own.createElement('img'); img.style.width = '256px'; img.style.height = '256px';
       var x = (coord.x % Math.pow(2, zoom)).toString(); var y = coord.y.toString();
@@ -309,7 +309,7 @@ function initialize() {
       return img;
     }
   });
-  map.mapTypes.set(GSI_GAZO_I, {name: '74-78', tileSize: new google.maps.Size(256, 256), minZoom: 10, maxZoom: 17, 
+  map.mapTypes.set(GSI_GAZO_I, {name: '74-78', tileSize: new google.maps.Size(256, 256), minZoom: 10, maxZoom: 17,
     getTile: function(coord, zoom, own) {
       var img = own.createElement('img'); img.style.width = '256px'; img.style.height = '256px';
       var x = (coord.x % Math.pow(2, zoom)).toString(); var y = coord.y.toString();
@@ -318,7 +318,7 @@ function initialize() {
       return img;
     }
   });
-  map.mapTypes.set(GSI_Color, {name: 'color', tileSize: new google.maps.Size(256, 256), minZoom: 5, maxZoom: 15, 
+  map.mapTypes.set(GSI_Color, {name: 'color', tileSize: new google.maps.Size(256, 256), minZoom: 5, maxZoom: 15,
     getTile: function(coord, zoom, own) {
       var img = own.createElement('img'); img.style.width = '256px'; img.style.height = '256px';
       var x = (coord.x % Math.pow(2, zoom)).toString(); var y = coord.y.toString();
@@ -327,7 +327,7 @@ function initialize() {
       return img;
     }
   });
-  map.mapTypes.set(GSI_SAT, {name: 'gsi picture', tileSize: new google.maps.Size(256, 256), minZoom: 13, maxZoom: 18, 
+  map.mapTypes.set(GSI_SAT, {name: 'gsi picture', tileSize: new google.maps.Size(256, 256), minZoom: 13, maxZoom: 18,
     getTile: function(coord, zoom, own) {
       var img = own.createElement('img'); img.style.width = '256px'; img.style.height = '256px';
       var x = (coord.x % Math.pow(2, zoom)).toString(); var y = coord.y.toString();
@@ -336,7 +336,7 @@ function initialize() {
       return img;
     }
   });
-  
+
 var marca = document.createElement('div');
   marca.style.fontSize = '11px';
   marca.style.color = '#666';
@@ -347,12 +347,12 @@ var marca = document.createElement('div');
   marca.style.marginBottom = '4px';
   marca.style.backgroundColor = '#fff';
   map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(marca);
-  marca.innerHTML = '<a href="http://maps.gsi.go.jp/development/ichiran.html" target="_blank">çëìyínóùâ@</a>';
+  marca.innerHTML = '<a href="http://maps.gsi.go.jp/development/ichiran.html" target="_blank">???y?n???@</a>';
 
   google.maps.event.addListener(map, 'zoom_changed', function() {
     zoomLevel = map.getZoom();
     document.getElementById('zoomer').innerHTML = zoomLevel;
-  });	
+  });
 
 
 google.maps.event.addListener(map, "click", function(){ infoWindow.close(); });
@@ -360,8 +360,8 @@ window.onload = readXML();
 }
 function readXML(){
 
-    var filename = "./Aircraft.xml"; //ÉtÉ@ÉCÉãñº
-    filename += "?" + Math.random(); //óêêîÇïtâ¡
+    var filename = 'X:/Public/XMLtest/Aircraft.xml'; //?t?@?C????
+    filename += "?" + Math.random(); //??????t??
 	downloadUrl(filename, function(data){
 
 		var xmlDoc = xmlParse(data);
@@ -375,9 +375,9 @@ function readXML(){
 			var callsign2 = markers[i].getAttribute("callsign");
 			var timestamp = markers[i].getAttribute("timestamp");
 			var h_direction = markers[i].getAttribute("h_dir");
-			var callsign = callsign2.replace( /_/g , "" ) ;	
+			var callsign = callsign2.replace( /_/g , "" ) ;
 			createMarker(modesaddress,latitude,longitude,altitude,h_velocity,callsign,h_direction,timestamp);
-			
+
 
 		} //end of for
 

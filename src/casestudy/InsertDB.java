@@ -6,7 +6,6 @@ public class InsertDB {
 	public static void callSignInsert(DB_Item_CallSign callsign) {
 		Connection   con = null;
 
-
 		try{
 			con = ConnectionManager.getConnection();
 			System.out.println("接続完了call");

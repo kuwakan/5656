@@ -18,6 +18,8 @@ public class RepositoryChooser {
 
 		//表示する
 		fd.setVisible(true);
+		fd.toFront();
+
 
 		//ディレクトリーの取得
 		dir = fd.getDirectory();

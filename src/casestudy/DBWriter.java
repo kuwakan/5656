@@ -35,6 +35,8 @@ public class DBWriter {
 		RepositoryChooser repoChooser = new RepositoryChooser();
 		repoChooser.actionPerformed(type + "テーブル");
 
+		if(repoChooser.getDir() == null || repoChooser.getFileName() == null) return;
+
 		String fileName = repoChooser.getDir() + sdf.format(timeStamp_) + " " + type + " " + repoChooser.getFileName() + ".csv";
 		String sql = "SELECT * FROM " + type;
 

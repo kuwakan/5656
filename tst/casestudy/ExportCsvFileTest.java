@@ -4,7 +4,7 @@ import java.sql.Connection;
 
 import org.junit.Test;
 
-public class ExportCsvTest {
+public class ExportCsvFileTest {
 
 	@Test
 	public void DBからデータをcsv形式で出力する() {

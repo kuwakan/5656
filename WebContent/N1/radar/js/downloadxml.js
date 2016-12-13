@@ -1,8 +1,8 @@
 /**
-* Returns an XMLHttp instance to use for asynchronous
-* downloading. This method will never throw an exception, but will
-* return NULL if the browser does not support XmlHttp for any reason.
-* @return {XMLHttpRequest|Null}
+*非同期ダウンロードに使用するXMLHttpインスタンスを返します。 
+*このメソッドは例外をスローしませんが、
+*何らかの理由でブラウザがXmlHttpをサポートしていない場合はNULLを返します。
+* @return {XMLHttpRequest | Null}
 */
 function createXmlHttpRequest() {
  try {
@@ -18,11 +18,10 @@ function createXmlHttpRequest() {
 };
 
 /**
-* This functions wraps XMLHttpRequest open/send function.
-* It lets you specify a URL and will call the callback if
-* it gets a status code of 200.
-* @param {String} url The URL to retrieve
-* @param {Function} callback The function to call once retrieved.
+*この関数は、XMLHttpRequestのopen / send関数をラップします。
+* URLを指定して、ステータスコードが200の場合はコールバックを呼び出します。
+* @param {String} url取得するURL
+* @param {Function} callback一度呼び出す関数を取得します。
 */
 function downloadUrl(url, callback) {
  var status = -1;
@@ -36,7 +35,7 @@ function downloadUrl(url, callback) {
      try {
        status = request.status;
      } catch (e) {
-       // Usually indicates request timed out in FF.
+       // 通常、リクエストはFFでタイムアウトしたことを示します。
      }
      if ((status == 200) || (status == 0)) {
        callback(request.responseText, request.status);
@@ -53,12 +52,11 @@ function downloadUrl(url, callback) {
 };
 
 /**
- * Parses the given XML string and returns the parsed document in a
- * DOM data structure. This function will return an empty DOM node if
- * XML parsing is not supported in this browser.
- * @param {string} str XML string.
- * @return {Element|Document} DOM.
- */
+*指定されたXML文字列を解析し、解析されたドキュメントをDOMデータ構造体に返します。
+*この関数は、XML解析がこのブラウザでサポートされていない場合、空のDOMノードを返します。
+* @param {string} str XML文字列
+* @return {Element | Document} DOM
+*/
 function xmlParse(str) {
   if (typeof ActiveXObject != 'undefined' && typeof GetObject != 'undefined') {
     var doc = new ActiveXObject('Microsoft.XMLDOM');
@@ -74,9 +72,9 @@ function xmlParse(str) {
 }
 
 /**
- * Appends a JavaScript file to the page.
- * @param {string} url
- */
+*ページにJavaScriptファイルを追加します。
+* @param {string} url
+*/
 function downloadScript(url) {
   var script = document.createElement('script');
   script.src = url;

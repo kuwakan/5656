@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<aircrafts>
+<aircraft altitude="30100.0" callsign="CCA466__" h_dir="180.0" h_velo="365.1" latitude="36.285587" longitude="137.07625" modeSaddress="780ad0" timestamp="2016-11-29 10:17:03.327" v_dir="0.0" v_velo="0.0"/>
+<aircraft altitude="22075.0" callsign="CAL159__" h_dir="50.0" h_velo="359.91" latitude="36.24625" longitude="137.51657" modeSaddress="8991b1" timestamp="2016-11-29 10:17:05.683" v_dir="0.0" v_velo="15.0"/>
+<aircraft altitude="37725.0" callsign="APJ132__" h_dir="77.0" h_velo="2100.1" latitude="34.184235" longitude="135.52331" modeSaddress="86cf67" timestamp="2016-11-29 10:17:07.075" v_dir="1.0" v_velo="3.0"/>
+<aircraft altitude="18075.0" callsign="CQH8552_" h_dir="288.0" h_velo="250.77" latitude="36.404423" longitude="138.09288" modeSaddress="780c06" timestamp="2016-11-29 10:17:07.168" v_dir="0.0" v_velo="31.0"/>
+<aircraft altitude="2300.0" callsign="KAA2725_" h_dir="293.0" h_velo="556.9" latitude="34.430695" longitude="135.20935" modeSaddress="71bf52" timestamp="2016-11-29 10:16:58.408" v_dir="1.0" v_velo="1.0"/>
+<aircraft altitude="13950.0" callsign="FDX19___" h_dir="50.0" h_velo="642.9" latitude="34.3873" longitude="135.14473" modeSaddress="abde34" timestamp="2016-11-29 10:17:06.858" v_dir="1.0" v_velo="6.0"/>
+<aircraft altitude="23300.0" callsign="UNK2727_" h_dir="183.0" h_velo="658.9" latitude="34.430695" longitude="135.70935" modeSaddress="76agh2" timestamp="2016-11-29 10:16:58.408" v_dir="1.0" v_velo="1.0"/>
+</aircrafts>

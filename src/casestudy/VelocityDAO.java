@@ -6,6 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+
+/**
+ * VELOCITYテーブルのDAO
+ */
 public class VelocityDAO {
 
 	private  Connection con;
@@ -57,6 +61,10 @@ public class VelocityDAO {
 	}
 
 
+	/**
+	 * DBにデータを格納する
+	 * @param velocity DB_Item_Velocityオブジェクト
+	 */
 	public DB_Item_Velocity insertvelocity(DB_Item_Velocity velocity) throws SQLException{
 		String sql = "INSERT INTO velocity(modes, H_velocity, V_velocity, H_direction, V_direction, timestamp)"+
 					"VALUES(?,?,?,?,?,systimestamp)";

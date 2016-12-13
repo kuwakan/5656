@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * CALLSIGNテーブルのDAO
+ */
 public class CallsignDAO {
 	private  Connection con;
 
@@ -50,7 +53,10 @@ public class CallsignDAO {
 		return call;
 	}
 
-
+	/**
+	 * DBにデータを格納する
+	 * @param callsign DB_Item_CallSignオブジェクト
+	 */
 	public DB_Item_CallSign insertcallsign(DB_Item_CallSign callsign) throws SQLException{
 		String sql = "INSERT INTO callsign(modes, callsign, timestamp)"+
 					"VALUES(?,?,systimestamp)";

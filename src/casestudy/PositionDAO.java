@@ -1,10 +1,14 @@
 package casestudy;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * POSITIONテーブルのDAO
+ */
 public class PositionDAO {
 
 	private  Connection con;
@@ -62,7 +66,10 @@ public class PositionDAO {
 		return posi;
 	}
 
-
+	/**
+	 * DBにデータを格納する
+	 * @param position DB_Item_PlanePositionオブジェクト
+	 */
 	public DB_Item_PlanePosition insertposition(DB_Item_PlanePosition position) throws SQLException{
 		String sql = "INSERT INTO position(modeS,  latitude, longitude, altitude, timestamp)"+
 					"VALUES(?,?,?,?,systimestamp)";
